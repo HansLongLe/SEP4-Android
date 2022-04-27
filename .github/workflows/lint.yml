@@ -17,6 +17,9 @@ jobs:
 
       - name: Run lint
         run: ./gradlew lintDebug
+        
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Upload html test report
         uses: actions/upload-artifact@v2
