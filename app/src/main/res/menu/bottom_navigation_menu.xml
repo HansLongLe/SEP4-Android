@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/CO2Fragment"
+        android:title="C02"
+        android:icon="@drawable/ic_carbon_dioxide" />
+
+    <item
+        android:id="@+id/tempFragment"
+        android:title="Temperature"
+        android:icon="@drawable/ic_temperature"
+        />
+
+    <item android:id="@+id/placeholder"
+        android:title=""
+        />
+
+    <item
+        android:id="@+id/humidityFragment"
+        android:title="Humidity"
+        android:icon="@drawable/ic_humidity"
+        />
+    <item
+        android:id="@+id/motionFragment"
+        android:title="Motion"
+        android:icon="@drawable/ic_motion"/>
+</menu>
