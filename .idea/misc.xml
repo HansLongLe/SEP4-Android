@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/activity_login_create_account_page.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/humidity_fragment.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/motion_fragment.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/temp_fragment.xml" value="0.358695652173913" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android API 32 Platform" project-jdk-type="Android SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
