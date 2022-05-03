@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_auth.xml" value="0.3625" />
+        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_login_create_account_page.xml" value="0.3625" />
+        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/create_account_fragment.xml" value="0.3625" />
+        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/login_fragment.xml" value="0.3625" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android API 32 Platform" project-jdk-type="Android SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

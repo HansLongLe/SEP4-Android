@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">SEP4-Android</string>
+    <string name="create_account_title">Welcome to Smart Gym</string>
+    <string name="input_email_hint">Email Address</string>
+    <string name="input_username_hint">Username</string>
+    <string name="input_password_hint">Password</string>
+    <string name="input_password_confirm_hint">Confirm password</string>
+    <string name="btn_register">Register</string>
+    <string name="login_redirect_txt">Already have an account?</string>
+    <string name="log_in_btn">Log In</string>
+    <string name="login_title">Welcome back!</string>
+    <string name="create_account_redirect_txt">Click here to sign up.</string>
 </resources>

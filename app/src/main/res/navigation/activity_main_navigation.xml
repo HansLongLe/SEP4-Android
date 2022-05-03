@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_navigation"
+    app:startDestination="@id/CO2Fragment">
+
+    <fragment
+        android:id="@+id/CO2Fragment"
+        android:name="com.example.sep4_android.view.CO2Fragment"
+        android:label="c_o2_fragment"
+        tools:layout="@layout/c_o2_fragment" />
+    <fragment
+        android:id="@+id/tempFragment"
+        android:name="com.example.sep4_android.view.TempFragment"
+        android:label="temp_fragment"
+        tools:layout="@layout/temp_fragment" />
+    <fragment
+        android:id="@+id/humidityFragment"
+        android:name="com.example.sep4_android.view.HumidityFragment"
+        android:label="humidity_fragment"
+        tools:layout="@layout/humidity_fragment" />
+    <fragment
+        android:id="@+id/motionFragment"
+        android:name="com.example.sep4_android.view.MotionFragment"
+        android:label="motion_fragment"
+        tools:layout="@layout/motion_fragment" />
+</navigation>
