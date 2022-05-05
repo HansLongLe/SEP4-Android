@@ -18,7 +18,7 @@
             android:layout_marginBottom="30dp">
 
             <TextView
-                android:id="@+id/createAccountTitle"
+                android:id="@+id/loginTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/login_title"
@@ -32,12 +32,12 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/loginUsername"
+                android:id="@+id/loginEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="@string/input_username_hint" />
+                android:inputType="textEmailAddress"
+                android:hint="@string/input_email_hint" />
 
             <EditText
                 android:id="@+id/loginPassword"
