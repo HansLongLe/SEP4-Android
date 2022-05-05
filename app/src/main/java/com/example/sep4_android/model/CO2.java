@@ -1,18 +1,35 @@
 package com.example.sep4_android.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class CO2 {
-    String cO2data;
+    @SerializedName("co2Id")
+    @Expose
+    private int co2Id;
+    @SerializedName("co2Level")
+    @Expose
+    private int co2Level;
 
-    public CO2 (String CO2data)
+    public CO2(int co2Id, int co2Level)
     {
-        this.cO2data = CO2data;
+        this.co2Id = co2Id;
+        this.co2Level = co2Level;
     }
 
-    public String getCO2data() {
-        return cO2data;
+    public int getCo2Level() {
+        return co2Level;
     }
 
-    public void setCO2data(String data) {
-        this.cO2data = data;
+    public void setCo2Level(int co2Level) {
+        this.co2Level = co2Level;
+    }
+
+    public int getCo2Id() {
+        return co2Id;
+    }
+
+    public void setCo2Id(int co2Id) {
+        this.co2Id = co2Id;
     }
 }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class CO2Adapter extends RecyclerView.Adapter<CO2Adapter.ViewHolder> {
 
 private ArrayList<CO2> cO2Data;
+private View view;
 
 public CO2Adapter (ArrayList<CO2> cO2Data){
         this.cO2Data = cO2Data;
@@ -25,8 +26,8 @@ public CO2Adapter (ArrayList<CO2> cO2Data){
 @Override
 public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
-        int height = parent.getHeight()/8;
+        view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
+        int height = parent.getHeight()/7;
         int width = parent.getWidth();
         view.setLayoutParams(new RecyclerView.LayoutParams(width,height));
         return new ViewHolder(view);
@@ -34,14 +35,19 @@ public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 @Override
 public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.dataInformation.setText(cO2Data.get(position).getCO2data());
+        holder.dataInformation.setText(cO2Data.get(position).getCo2Level() + " ppm");
         }
 
 @Override
 public int getItemCount() {
-        return cO2Data.size();
-        }
+    return  cO2Data == null ? 0 : cO2Data.size();
+}
 
+public void updateCO2Data(ArrayList<CO2> cO2Data)
+{
+    this.cO2Data = cO2Data;
+    notifyDataSetChanged();
+}
 
 class ViewHolder extends RecyclerView.ViewHolder{
     private final TextView dataInformation;

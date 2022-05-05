@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +20,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.adapters.CO2Adapter;
+import com.example.sep4_android.model.CO2;
 import com.example.sep4_android.viewModel.CO2ViewModel;
+
+import java.util.ArrayList;
 
 public class CO2Fragment extends Fragment {
 
     private CO2ViewModel mViewModel;
+    private CO2Adapter co2Adapter;
+
+    private ArrayList<CO2> co2s;
 
     private String[] items = {"Last hour", "Today", "Past 7 days", "Last month"};
     private View view;
@@ -40,6 +49,20 @@ public class CO2Fragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.c_o2_fragment, container, false);
 
+        RecyclerView recyclerView = view.findViewById(R.id.co2_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        co2Adapter = new CO2Adapter(co2s);
+
+        mViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
+        mViewModel.getCO2().observe(getViewLifecycleOwner(), co2List -> {
+            this.co2s = co2List;
+            co2Adapter.updateCO2Data(co2List);
+        });
+        recyclerView.setAdapter(co2Adapter);
+
+
         autoCompleteTextView = view.findViewById(R.id.auto_complete_text_view);
         arrayAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.dropdown_menu_item,items);
         autoCompleteTextView.setAdapter(arrayAdapter);
@@ -53,6 +76,7 @@ public class CO2Fragment extends Fragment {
         });
         return view;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

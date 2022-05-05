@@ -3,20 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.19166666666666668" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/dropdown_item.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/dropdown_menu_item.xml" value="0.19166666666666668" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/humidity_fragment.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/motion_fragment.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/recycler_view_item.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/temp_fragment.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.371875" />
-        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_auth.xml" value="0.3625" />
-        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_login_create_account_page.xml" value="0.3625" />
-        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/create_account_fragment.xml" value="0.3625" />
-        <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/login_fragment.xml" value="0.3625" />
+        <entry key="..\:/Users/hansl/Documents/GitHub/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/hansl/Documents/GitHub/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>
