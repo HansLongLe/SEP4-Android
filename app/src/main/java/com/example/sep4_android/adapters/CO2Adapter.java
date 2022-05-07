@@ -27,7 +27,7 @@ public CO2Adapter (ArrayList<CO2> cO2Data){
 public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
-        int height = parent.getHeight()/7;
+        int height = parent.getHeight()/10;
         int width = parent.getWidth();
         view.setLayoutParams(new RecyclerView.LayoutParams(width,height));
         return new ViewHolder(view);

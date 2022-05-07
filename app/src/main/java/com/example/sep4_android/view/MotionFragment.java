@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +19,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
+
+import com.example.sep4_android.adapters.MotionAdapter;
+import com.example.sep4_android.model.Motion;
+
 import com.example.sep4_android.viewModel.MotionViewModel;
+
+import java.util.ArrayList;
 
 public class MotionFragment extends Fragment {
 
     private MotionViewModel mViewModel;
+    private MotionAdapter motionAdapter;
+    private ArrayList<Motion> motionArrayList;
+
     private String[] items = {"Last hour", "Today", "Past 7 days", "Last month"};
     private View view;
 
@@ -37,6 +48,20 @@ public class MotionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.motion_fragment, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.motion_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        motionAdapter = new MotionAdapter(motionArrayList);
+
+        mViewModel = new ViewModelProvider(this).get(MotionViewModel.class);
+        mViewModel.getMotion().observe(getViewLifecycleOwner(), motionList -> {
+            this.motionArrayList = motionList;
+            motionAdapter.updateMotionData(motionList);
+        });
+        recyclerView.setAdapter(motionAdapter);
+
 
         autoCompleteTextView = view.findViewById(R.id.auto_comlete_text_view3);
         arrayAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.dropdown_menu_item,items);

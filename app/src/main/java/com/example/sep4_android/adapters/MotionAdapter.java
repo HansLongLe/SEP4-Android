@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.model.Humidity;
 import com.example.sep4_android.model.Motion;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MotionAdapter extends RecyclerView.Adapter<MotionAdapter.ViewHolder> {
 
     private ArrayList<Motion> motionData;
+    private View view;
 
     public MotionAdapter (ArrayList<Motion> motionData){
         this.motionData = motionData;
@@ -25,8 +27,8 @@ public class MotionAdapter extends RecyclerView.Adapter<MotionAdapter.ViewHolder
     @Override
     public MotionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
-        int height = parent.getHeight()/8;
+        view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
+        int height = parent.getHeight()/10;
         int width = parent.getWidth();
         view.setLayoutParams(new RecyclerView.LayoutParams(width,height));
         return new MotionAdapter.ViewHolder(view);
@@ -40,9 +42,15 @@ public class MotionAdapter extends RecyclerView.Adapter<MotionAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return motionData.size();
+        return  motionData == null ? 0 : motionData.size();
     }
 
+
+    public void updateMotionData(ArrayList<Motion> motionData)
+    {
+        this.motionData = motionData;
+        notifyDataSetChanged();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView dataInformation;

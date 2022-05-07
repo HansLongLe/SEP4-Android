@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.model.CO2;
+import com.example.sep4_android.model.Humidity;
 import com.example.sep4_android.model.Temperature;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.ViewHolder> {
 
     private ArrayList<Temperature> temperatureData;
+    private View view;
 
     public TemperatureAdapter (ArrayList<Temperature> temperatureData){
         this.temperatureData = temperatureData;
@@ -26,8 +28,8 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
     @Override
     public TemperatureAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
-        int height = parent.getHeight()/8;
+        view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
+        int height = parent.getHeight()/10;
         int width = parent.getWidth();
         view.setLayoutParams(new RecyclerView.LayoutParams(width,height));
         return new TemperatureAdapter.ViewHolder(view);
@@ -35,14 +37,20 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TemperatureAdapter.ViewHolder holder, int position) {
-        holder.dataInformation.setText(temperatureData.get(position).getTemperatureData());
+        holder.dataInformation.setText(temperatureData.get(position).getTemperature() + " °C");
     }
 
     @Override
     public int getItemCount() {
-        return temperatureData.size();
+        return  temperatureData == null ? 0 : temperatureData.size();
     }
 
+
+    public void updateTemperatureData(ArrayList<Temperature> temperatureData)
+    {
+        this.temperatureData = temperatureData;
+        notifyDataSetChanged();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView dataInformation;

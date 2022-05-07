@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +19,22 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.adapters.HumidityAdapter;
+import com.example.sep4_android.adapters.TemperatureAdapter;
+import com.example.sep4_android.model.Humidity;
+import com.example.sep4_android.model.Temperature;
+import com.example.sep4_android.viewModel.HumidityViewModel;
 import com.example.sep4_android.viewModel.TempViewModel;
+
+import java.util.ArrayList;
 
 public class TempFragment extends Fragment {
 
     private TempViewModel mViewModel;
+
+    private TemperatureAdapter temperatureAdapter;
+    private ArrayList<Temperature> temperatureArrayList;
+
     private String[] items = {"Last hour", "Today", "Past 7 days", "Last month"};
     private View view;
 
@@ -37,6 +50,20 @@ public class TempFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.temp_fragment, container, false);
+
+
+        RecyclerView recyclerView = view.findViewById(R.id.temperature_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        temperatureAdapter = new TemperatureAdapter(temperatureArrayList);
+
+        mViewModel = new ViewModelProvider(this).get(TempViewModel.class);
+        mViewModel.getTemperature().observe(getViewLifecycleOwner(), temperatureList -> {
+            this.temperatureArrayList = temperatureList;
+            temperatureAdapter.updateTemperatureData(temperatureList);
+        });
+        recyclerView.setAdapter(temperatureAdapter);
 
         autoCompleteTextView = view.findViewById(R.id.auto_comlete_text_view4);
         arrayAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.dropdown_menu_item,items);
