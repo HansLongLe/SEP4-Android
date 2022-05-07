@@ -36,6 +36,7 @@ public class CreateAccountFragment extends Fragment {
     private TextView title, errorMsg, redirectLink;
     private EditText email, password, passwordConfirm;
     private Button btn;
+
     public static CreateAccountFragment newInstance() {
         return new CreateAccountFragment();
     }
@@ -50,8 +51,8 @@ public class CreateAccountFragment extends Fragment {
         redirectLink.setOnClickListener(v -> redirectToLogin());
         btn.setOnClickListener(v -> {
             if (email.getText() != null
-            && password.getText() != null
-            && passwordConfirm.getText() != null) {
+                    && password.getText() != null
+                    && passwordConfirm.getText() != null) {
                 createAccount(email.getText().toString(),
                         password.getText().toString(),
                         passwordConfirm.getText().toString());
@@ -91,26 +92,41 @@ public class CreateAccountFragment extends Fragment {
     }
 
     private void createAccount(String email, String password, String passwordConfirm) {
-        errorMsg.setText(null);
+        setError("", "#000000");
+
+        if (email == null || email.equals("")) {
+            setError("Please enter your email address", "#FF0000");
+            return;
+        }
+
+        if (password == null || password.equals("")) {
+            setError("Please enter a password", "#FF0000");
+            return;
+        }
 
         if (!password.equals(passwordConfirm)) {
-            errorMsg.setText(R.string.passwords_not_matching);
+            setError("Passwords do not match. Please try again", "#FF0000");
             return;
         }
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
-                   if (task.isSuccessful())
-                       // Create account successful
-                       startActivity(mainActivityIntent);
-                   else
-                       errorMsg.setText(Objects.requireNonNull(task.getException()).getMessage());
+                    if (task.isSuccessful())
+                        // Create account successful
+                        startActivity(mainActivityIntent);
+                    else
+                        setError(Objects.requireNonNull(task.getException()).getMessage(), "#FF0000");
                 });
         startActivity(mainActivityIntent);
     }
 
     private void redirectToLogin() {
         getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new LoginFragment()).commit();
+    }
+
+    private void setError(String message, String color) {
+        errorMsg.setTextColor(Color.parseColor(color));
+        errorMsg.setText(message);
     }
 
 }

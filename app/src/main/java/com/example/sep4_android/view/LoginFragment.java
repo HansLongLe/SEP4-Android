@@ -3,6 +3,7 @@ package com.example.sep4_android.view;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -65,8 +66,18 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(String email, String password) {
-        error.setText(null);
 
+        if (email == null || email.equals("")) {
+            setError("Please enter your email address", "#FF0000");
+            return;
+        }
+
+        if (password == null || password.equals("")) {
+            setError("Please enter your password", "#FF0000");
+            return;
+        }
+
+        setError("", "#000000");
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
                    if (task.isSuccessful()) {
@@ -76,7 +87,7 @@ public class LoginFragment extends Fragment {
                    else {
                        // Login failed
                        Log.w("A", Objects.requireNonNull(task.getException()).getMessage());
-                       error.setText(Objects.requireNonNull(task.getException()).getMessage());
+                       setError(Objects.requireNonNull(task.getException()).getMessage(), "#FF0000");
                    }
                 });
     }
@@ -87,5 +98,10 @@ public class LoginFragment extends Fragment {
 
     private void redirectToForgotPassword() {
         getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new ForgotPasswordFragment()).commit();
+    }
+
+    private void setError(String message, String color) {
+        error.setTextColor(Color.parseColor(color));
+        error.setText(message);
     }
 }
