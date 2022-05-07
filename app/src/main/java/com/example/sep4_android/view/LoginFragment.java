@@ -26,11 +26,11 @@ import java.util.Objects;
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private LoginViewModel mViewModel;
-    private TextView redirectLink;
+    private TextView redirectLink, forgotPasswordLink, error;
     private Button btn;
     private View view;
     private Intent mainActivityIntent;
-    private EditText email, password, error;
+    private EditText email, password;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -41,12 +41,13 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.login_fragment, container, false);
         init();
-        redirectLink.setOnClickListener(v -> redirectToCreateAccount());
-
         btn.setOnClickListener(v -> {
-            if (email.getText() != null && password.getText() != null)
-            login(email.getText().toString(), password.getText().toString());
+            if (email.getText() != null && password.getText() != null) {
+                login(email.getText().toString(), password.getText().toString());
+            }
         });
+        redirectLink.setOnClickListener(v -> redirectToCreateAccount());
+        forgotPasswordLink.setOnClickListener(v -> redirectToForgotPassword());
 
         return view;
     }
@@ -60,11 +61,12 @@ public class LoginFragment extends Fragment {
         error = view.findViewById(R.id.loginError);
         btn = view.findViewById(R.id.loginBtn);
         redirectLink = view.findViewById(R.id.createAccountRedirect);
+        forgotPasswordLink = view.findViewById(R.id.forgotPasswordLink);
     }
 
     private void login(String email, String password) {
         error.setText(null);
-        
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
                    if (task.isSuccessful()) {
@@ -81,5 +83,9 @@ public class LoginFragment extends Fragment {
 
     private void redirectToCreateAccount() {
         getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new CreateAccountFragment()).commit();
+    }
+
+    private void redirectToForgotPassword() {
+        getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new ForgotPasswordFragment()).commit();
     }
 }

@@ -10,4 +10,7 @@
     <string name="login_title">Welcome back!</string>
     <string name="create_account_redirect_txt">Click here to sign up.</string>
     <string name="passwords_not_matching">Passwords do not match. Please try again.</string>
+    <string name="i_forgot_my_password">I forgot my password</string>
+    <string name="forgot_password_title">Please enter the email attached to your account.</string>
+    <string name="forgot_password_btn">Send email</string>
 </resources>

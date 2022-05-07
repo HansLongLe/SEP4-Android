@@ -47,14 +47,6 @@
                 android:inputType="textPassword"
                 android:hint="@string/input_password_hint"/>
 
-            <EditText
-                android:id="@+id/loginConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/input_password_confirm_hint" />
-
             <TextView
                 android:id="@+id/createAccountRedirect"
                 android:layout_width="match_parent"
@@ -73,6 +65,19 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FF0000"
                 android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forgotPasswordLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/i_forgot_my_password" />
         </LinearLayout>
     </LinearLayout>
 
