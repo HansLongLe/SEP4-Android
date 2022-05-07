@@ -25,7 +25,6 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/c_o2_current_state"
-                android:textColor="@android:color/tab_indicator_text"
                 android:textSize="24sp" />
 
             <TextView
@@ -34,8 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@string/current_data"
-                android:textColor="@color/black" />
+                android:text="@string/current_data" />
 
         </LinearLayout>
 
@@ -58,7 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"
-                    android:textColor="@color/black"
                     tools:ignore="TouchTargetSizeCheck,TextContrastCheck">
 
                 </AutoCompleteTextView>
