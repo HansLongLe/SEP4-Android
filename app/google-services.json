@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "490495298947",
+    "project_id": "smart-gym-c02ac",
+    "storage_bucket": "smart-gym-c02ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490495298947:android:ad094d0c3becf0b353fab6",
+        "android_client_info": {
+          "package_name": "com.example.sep4_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490495298947-fd18ccocpiestg1d9131le7cnpkv5pk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sep4_android",
+            "certificate_hash": "9ad6297e73f02f227adc2da4ac68be7b6ec6f5ab"
+          }
+        },
+        {
+          "client_id": "490495298947-rfqhae5k7p9lbcdlp72rfu1bepb7b7e0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsxP6jEwgA-h56OOxFldtItyoXtC7YFIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "490495298947-rfqhae5k7p9lbcdlp72rfu1bepb7b7e0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

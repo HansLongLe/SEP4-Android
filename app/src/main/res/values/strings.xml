@@ -2,7 +2,6 @@
     <string name="app_name">SEP4-Android</string>
     <string name="create_account_title">Welcome to Smart Gym</string>
     <string name="input_email_hint">Email Address</string>
-    <string name="input_username_hint">Username</string>
     <string name="input_password_hint">Password</string>
     <string name="input_password_confirm_hint">Confirm password</string>
     <string name="btn_register">Register</string>
@@ -16,4 +15,8 @@
     <string name="temperature_current_state">Temperature current state:</string>
     <string name="motion_current_state">Motion current state:</string>
     <string name="current_data">current_data</string>
+    <string name="passwords_not_matching">Passwords do not match. Please try again.</string>
+    <string name="i_forgot_my_password">I forgot my password</string>
+    <string name="forgot_password_title">Please enter the email attached to your account.</string>
+    <string name="forgot_password_btn">Send email</string>
 </resources>

@@ -22,12 +22,21 @@ import android.widget.TextView;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.viewModel.CreateAccountViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class CreateAccountFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
     private Intent mainActivityIntent;
     private CreateAccountViewModel mViewModel;
-    private TextView title, errorMsg;
+    private View view;
+    private TextView title, errorMsg, redirectLink;
+    private EditText email, password, passwordConfirm;
+    private Button btn;
+
     public static CreateAccountFragment newInstance() {
         return new CreateAccountFragment();
     }
@@ -35,32 +44,41 @@ public class CreateAccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(CreateAccountViewModel.class);
-        View view = inflater.inflate(R.layout.create_account_fragment, container, false);
-        mainActivityIntent = new Intent(getActivity(), MainActivity.class);
-        title = view.findViewById(R.id.createAccountTitle);
-        errorMsg = view.findViewById(R.id.createAccountError);
-        Button btn = view.findViewById(R.id.createAccountBtn);
-        TextView redirectLink = view.findViewById(R.id.loginRedirect);
-        EditText email = view.findViewById(R.id.createAccountEmail);
-        EditText username = view.findViewById(R.id.createAccountUsername);
-        EditText password = view.findViewById(R.id.createAccountPassword);
-        EditText passwordConfirm = view.findViewById(R.id.createAccountConfirmPassword);
+        view = inflater.inflate(R.layout.create_account_fragment, container, false);
+        init();
         setTitleGradient();
 
         redirectLink.setOnClickListener(v -> redirectToLogin());
         btn.setOnClickListener(v -> {
             if (email.getText() != null
-            && username.getText() != null
-            && password.getText() != null
-            && passwordConfirm.getText() != null) {
+                    && password.getText() != null
+                    && passwordConfirm.getText() != null) {
                 createAccount(email.getText().toString(),
-                        username.getText().toString(),
                         password.getText().toString(),
                         passwordConfirm.getText().toString());
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) startActivity(mainActivityIntent);
+    }
+
+    private void init() {
+        mViewModel = new ViewModelProvider(this).get(CreateAccountViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
+        mainActivityIntent = new Intent(getActivity(), MainActivity.class);
+        title = view.findViewById(R.id.createAccountTitle);
+        errorMsg = view.findViewById(R.id.createAccountError);
+        btn = view.findViewById(R.id.createAccountBtn);
+        redirectLink = view.findViewById(R.id.loginRedirect);
+        email = view.findViewById(R.id.createAccountEmail);
+        password = view.findViewById(R.id.createAccountPassword);
+        passwordConfirm = view.findViewById(R.id.createAccountConfirmPassword);
     }
 
     private void setTitleGradient() {
@@ -73,13 +91,42 @@ public class CreateAccountFragment extends Fragment {
         title.getPaint().setShader(titleShader);
     }
 
-    private void createAccount(String email, String username, String password, String passwordConfirm) {
-        // logic to create account here
+    private void createAccount(String email, String password, String passwordConfirm) {
+        setError("", "#000000");
+
+        if (email == null || email.equals("")) {
+            setError("Please enter your email address", "#FF0000");
+            return;
+        }
+
+        if (password == null || password.equals("")) {
+            setError("Please enter a password", "#FF0000");
+            return;
+        }
+
+        if (!password.equals(passwordConfirm)) {
+            setError("Passwords do not match. Please try again", "#FF0000");
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    if (task.isSuccessful())
+                        // Create account successful
+                        startActivity(mainActivityIntent);
+                    else
+                        setError(Objects.requireNonNull(task.getException()).getMessage(), "#FF0000");
+                });
         startActivity(mainActivityIntent);
     }
 
     private void redirectToLogin() {
         getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new LoginFragment()).commit();
+    }
+
+    private void setError(String message, String color) {
+        errorMsg.setTextColor(Color.parseColor(color));
+        errorMsg.setText(message);
     }
 
 }
