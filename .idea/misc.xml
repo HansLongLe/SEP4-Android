@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.225" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/fragment_user_list.xml" value="0.28489583333333335" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/humidity_fragment.xml" value="0.225" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/motion_fragment.xml" value="0.225" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/temp_fragment.xml" value="0.20244565217391305" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/user_row.xml" value="0.28854166666666664" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/layout/users_list_fragment.xml" value="0.23385416666666667" />
+        <entry key="..\:/4th semester/AND/SEP4-Android/app/src/main/res/menu/appbar.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_auth.xml" value="0.3625" />
         <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_login_create_account_page.xml" value="0.3625" />
         <entry key="..\:/Users/coste/School/4th Semester/SEP4/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.3625" />
@@ -12,7 +21,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android API 32 Platform" project-jdk-type="Android SDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android API 32 Platform" project-jdk-type="Android SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

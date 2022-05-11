@@ -1,16 +1,32 @@
 package com.example.sep4_android.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.sep4_android.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+//import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +36,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bottomNavigation() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        NavController navController = Navigation.findNavController(this,  R.id.fragmentContainerViewMainActivity);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navController = Navigation.findNavController(this,  R.id.fragmentContainerViewMainActivity);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+       switch (item.getItemId()) {
+           case R.id.users_list:
+               getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMainActivity, new UserListFragment()).commit();
+               break;
+       }
+        return true;
     }
 }

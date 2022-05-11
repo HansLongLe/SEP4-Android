@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.security.identity.NoAuthenticationKeyAvailableException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.model.User;
 import com.example.sep4_android.viewModel.CreateAccountViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -36,6 +38,7 @@ public class CreateAccountFragment extends Fragment {
     private TextView title, errorMsg, redirectLink;
     private EditText email, password, passwordConfirm;
     private Button btn;
+    private DatabaseReference databaseReference;
 
     public static CreateAccountFragment newInstance() {
         return new CreateAccountFragment();
@@ -71,6 +74,7 @@ public class CreateAccountFragment extends Fragment {
     private void init() {
         mViewModel = new ViewModelProvider(this).get(CreateAccountViewModel.class);
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         mainActivityIntent = new Intent(getActivity(), MainActivity.class);
         title = view.findViewById(R.id.createAccountTitle);
         errorMsg = view.findViewById(R.id.createAccountError);
@@ -111,9 +115,13 @@ public class CreateAccountFragment extends Fragment {
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
-                    if (task.isSuccessful())
+                    if (task.isSuccessful()) {
+                        if (task.getResult().getUser() != null) {
+                            databaseReference.child("users").child(task.getResult().getUser().getUid()).setValue(new User(email));
+                        }
                         // Create account successful
                         startActivity(mainActivityIntent);
+                    }
                     else
                         setError(Objects.requireNonNull(task.getException()).getMessage(), "#FF0000");
                 });

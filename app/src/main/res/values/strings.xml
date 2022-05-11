@@ -13,4 +13,6 @@
     <string name="i_forgot_my_password">I forgot my password</string>
     <string name="forgot_password_title">Please enter the email attached to your account.</string>
     <string name="forgot_password_btn">Send email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
