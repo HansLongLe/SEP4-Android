@@ -3,6 +3,7 @@ package com.example.sep4_android.repository;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep4_android.model.CO2;
+import com.example.sep4_android.model.Sensor;
 import com.example.sep4_android.network.DataRetrieveInterface;
 import com.example.sep4_android.network.ServiceGenerator;
 
@@ -31,15 +32,20 @@ public class CO2Repository {
     public MutableLiveData<ArrayList<CO2>> getCo2s()
     {
         DataRetrieveInterface apiService = ServiceGenerator.getRetrofitInstance().create(DataRetrieveInterface.class);
-        Call<ArrayList<CO2>> call = apiService.getAllCO2();
-        call.enqueue(new Callback<ArrayList<CO2>>() {
+        Call<ArrayList<Sensor>> call = apiService.getSensors();
+        call.enqueue(new Callback<ArrayList<Sensor>>() {
             @Override
-            public void onResponse(Call<ArrayList<CO2>> call, Response<ArrayList<CO2>> response) {
-                co2s.setValue(response.body());
+            public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
+                ArrayList<CO2> temp = new ArrayList<>();
+                for (int i = 0; i < response.body().size(); i++) {
+                    temp.add(response.body().get(i).getCo2());
+                    temp.get(i).setTime(response.body().get(i).getTime());
+                }
+                co2s.setValue(temp);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<CO2>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Sensor>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep4_android.model.CO2;
 import com.example.sep4_android.model.Humidity;
+import com.example.sep4_android.model.Sensor;
 import com.example.sep4_android.network.DataRetrieveInterface;
 import com.example.sep4_android.network.ServiceGenerator;
 
@@ -33,15 +34,20 @@ public class HumidityRepository {
     public MutableLiveData<ArrayList<Humidity>> getHumidityData()
     {
         DataRetrieveInterface apiService = ServiceGenerator.getRetrofitInstance().create(DataRetrieveInterface.class);
-        Call<ArrayList<Humidity>> call = apiService.getAllHumidity();
-        call.enqueue(new Callback<ArrayList<Humidity>>() {
+        Call<ArrayList<Sensor>> call = apiService.getSensors();
+        call.enqueue(new Callback<ArrayList<Sensor>>() {
             @Override
-            public void onResponse(Call<ArrayList<Humidity>> call, Response<ArrayList<Humidity>> response) {
-                humidityData.setValue(response.body());
+            public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
+                ArrayList<Humidity> temp = new ArrayList<>();
+                for (int i = 0; i < response.body().size(); i++) {
+                    temp.add(response.body().get(i).getHumidity());
+                    temp.get(i).setTime(response.body().get(i).getTime());
+                }
+                humidityData.setValue(temp);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Humidity>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Sensor>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

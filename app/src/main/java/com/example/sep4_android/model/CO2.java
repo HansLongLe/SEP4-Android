@@ -10,11 +10,13 @@ public class CO2 {
     @SerializedName("co2Level")
     @Expose
     private int co2Level;
+    private String time;
 
-    public CO2(int co2Id, int co2Level)
+    public CO2(int co2Id, int co2Level, String time)
     {
         this.co2Id = co2Id;
         this.co2Level = co2Level;
+        this.time = time;
     }
 
     public int getCo2Level() {
@@ -31,5 +33,13 @@ public class CO2 {
 
     public void setCo2Id(int co2Id) {
         this.co2Id = co2Id;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

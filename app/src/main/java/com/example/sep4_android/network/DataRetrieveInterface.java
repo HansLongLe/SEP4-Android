@@ -3,6 +3,7 @@ package com.example.sep4_android.network;
 import com.example.sep4_android.model.CO2;
 import com.example.sep4_android.model.Humidity;
 import com.example.sep4_android.model.Motion;
+import com.example.sep4_android.model.Sensor;
 import com.example.sep4_android.model.Temperature;
 
 import java.util.ArrayList;
@@ -19,4 +20,6 @@ public interface DataRetrieveInterface {
     Call<ArrayList<Temperature>> getAllTemperature();
     @GET("/motionSensors")
     Call<ArrayList<Motion>> getAllMotion();
+    @GET("/sensors")
+    Call<ArrayList<Sensor>> getSensors();
 }

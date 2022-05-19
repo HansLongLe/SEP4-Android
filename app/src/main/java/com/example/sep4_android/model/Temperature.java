@@ -10,15 +10,17 @@ public class Temperature {
     @SerializedName("temperature")
     @Expose
     private Double temperature;
+    private String time;
 
 
     public Temperature() {
     }
 
-    public Temperature(Integer temperatureId, Double temperature) {
+    public Temperature(Integer temperatureId, Double temperature, String time) {
         super();
         this.temperatureId = temperatureId;
         this.temperature = temperature;
+        this.time = time;
     }
 
     public Integer getTemperatureId() {
@@ -35,5 +37,13 @@ public class Temperature {
 
     public void setTemperature(Double temperature) {
         this.temperature = temperature;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

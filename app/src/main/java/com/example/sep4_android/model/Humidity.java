@@ -10,14 +10,16 @@ public class Humidity {
     @SerializedName("humidity")
     @Expose
     private Double humidity;
+    private String time;
 
     public Humidity() {
     }
 
-    public Humidity(Integer humidityId, Double humidity) {
+    public Humidity(Integer humidityId, Double humidity, String time) {
         super();
         this.humidityId = humidityId;
         this.humidity = humidity;
+        this.time = time;
     }
 
     public Integer getHumidityId() {
@@ -34,5 +36,13 @@ public class Humidity {
 
     public void setHumidity(Double humidity) {
         this.humidity = humidity;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
