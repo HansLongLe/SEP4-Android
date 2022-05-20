@@ -12,18 +12,6 @@
         android:orientation="vertical"
         android:weightSum="10">
 
-        <fragment
-            android:id="@+id/fragmentContainerViewMainActivity"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"
-            app:defaultNavHost="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/activity_main_navigation" />
     <fragment
         android:id="@+id/fragmentContainerViewMainActivity"
         android:name="androidx.navigation.fragment.NavHostFragment"
