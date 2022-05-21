@@ -1,18 +1,19 @@
 package com.example.sep4_android.view;
 
+import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.fragment.app.Fragment;
+
 import com.example.sep4_android.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -21,7 +22,7 @@ public class ForgotPasswordFragment extends Fragment {
     private FirebaseAuth mAuth;
     private View view;
     private TextView err;
-    private EditText in;
+    private TextInputLayout in;
     private Button btn;
 
     @Override
@@ -30,8 +31,16 @@ public class ForgotPasswordFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
         init();
-        if (in.getText() != null)
-        btn.setOnClickListener(v -> resetPassword(in.getText().toString()));
+        requireActivity()
+                .getOnBackPressedDispatcher()
+                .addCallback(requireActivity(), new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        getParentFragmentManager().beginTransaction().replace(container.getId(), new LoginFragment()).commit();
+                    }
+                });
+        if (in.getEditText() != null)
+        btn.setOnClickListener(v -> resetPassword(in.getEditText().getText().toString()));
         return view;
     }
 
@@ -44,21 +53,21 @@ public class ForgotPasswordFragment extends Fragment {
 
     private void resetPassword(String email) {
         if (email == null || email.equals("")) {
-            setError("Please enter your email address", "#FF0000");
+            setError(getString(R.string.email_empty_error), getString(0+R.color.red));
             return;
         }
 
         mAuth.setLanguageCode("en");
-        setError("", "#000000");
+        setError("", getString(0+R.color.black));
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(requireActivity(), task -> {
                     //
                 })
                 .addOnSuccessListener(requireActivity(), task -> {
-                    setError("A reset password email has been sent to " + email, "#00FF00");
+                    setError(getString(R.string.reset_email_sent, email), getString(0+R.color.green));
                 })
                 .addOnFailureListener(requireActivity(), task -> {
-                    setError(task.getMessage(), "#FF0000");
+                    setError(task.getMessage(), getString(0+R.color.red));
                 });
     }
 
