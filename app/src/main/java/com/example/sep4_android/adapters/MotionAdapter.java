@@ -54,11 +54,15 @@ public class MotionAdapter extends RecyclerView.Adapter<MotionAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView dataInformation;
+        private final TextView dataDate;
+        private final TextView dateID;
 
         ViewHolder (@NonNull View itemView)
         {
             super(itemView);
-            this.dataInformation = itemView.findViewById(R.id.recycler_view_text);
+            this.dataInformation = itemView.findViewById(R.id.text_name);
+            this.dataDate = itemView.findViewById(R.id.text_date);
+            this.dateID = itemView.findViewById(R.id.text_id);
         }
     }
 }

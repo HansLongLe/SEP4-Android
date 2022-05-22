@@ -21,11 +21,13 @@ import android.widget.Toast;
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.HumidityAdapter;
 import com.example.sep4_android.adapters.TemperatureAdapter;
+import com.example.sep4_android.model.Temperature;
 import com.example.sep4_android.model.Humidity;
 import com.example.sep4_android.model.Temperature;
 import com.example.sep4_android.viewModel.HumidityViewModel;
 import com.example.sep4_android.viewModel.TempViewModel;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class TempFragment extends Fragment {
@@ -34,6 +36,8 @@ public class TempFragment extends Fragment {
 
     private TemperatureAdapter temperatureAdapter;
     private ArrayList<Temperature> temperatureArrayList;
+    private ArrayList<Temperature> filteredTemperature;
+    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     private String[] items = {"Last hour", "Today", "Past 7 days", "Last month"};
     private View view;
@@ -61,6 +65,7 @@ public class TempFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(TempViewModel.class);
         mViewModel.getTemperature().observe(getViewLifecycleOwner(), temperatureList -> {
             this.temperatureArrayList = temperatureList;
+            filteredTemperature = temperatureList;
             temperatureAdapter.updateTemperatureData(temperatureList);
         });
         recyclerView.setAdapter(temperatureAdapter);
@@ -73,7 +78,48 @@ public class TempFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(view.getContext(), "Item:"+item,Toast.LENGTH_SHORT).show();
+                if (!temperatureArrayList.isEmpty())
+                {
+                    filteredTemperature = new ArrayList<>();
+                    switch (adapterView.getItemAtPosition(i).toString()){
+                        case "Last hour":
+                            for (Temperature co2: temperatureArrayList) {
+                                if (timestamp.getTime() - co2.getTime().getTime() <= 3600000)
+                                {
+                                    filteredTemperature.add(co2);
+                                    temperatureAdapter.updateTemperatureData(filteredTemperature);
+                                }
+                            }
+                            break;
+                        case "Today":
+                            for (Temperature co2: temperatureArrayList) {
+                                if (co2.getTime().getYear() == timestamp.getYear() && co2.getTime().getMonth() == timestamp.getMonth()
+                                        && co2.getTime().getDate() == timestamp.getDate())
+                                {
+                                    filteredTemperature.add(co2);
+                                    temperatureAdapter.updateTemperatureData(filteredTemperature);
+                                }
+                            }
+                            break;
+                        case "Past 7 days":
+                            for (Temperature co2: temperatureArrayList) {
+                                if ((timestamp.getTime() - co2.getTime().getTime())/1000 <= 604800)
+                                {
+                                    filteredTemperature.add(co2);
+                                    temperatureAdapter.updateTemperatureData(filteredTemperature);
+                                }
+                            }
+                            break;
+                        case "Last month":
+                            for (Temperature co2: temperatureArrayList) {
+                                if ((timestamp.getTime() - co2.getTime().getTime())/1000 <= 2628000){
+                                    filteredTemperature.add(co2);
+                                    temperatureAdapter.updateTemperatureData(filteredTemperature);
+                                }
+                            }
+                            break;
+                    }
+                }
             }
         });
 

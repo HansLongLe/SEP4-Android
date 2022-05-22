@@ -1,4 +1,4 @@
-package com.example.sep4_android.adapter;
+package com.example.sep4_android.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

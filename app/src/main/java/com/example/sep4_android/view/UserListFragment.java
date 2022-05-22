@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sep4_android.R;
-import com.example.sep4_android.adapter.AdapterUsers;
+import com.example.sep4_android.adapters.AdapterUsers;
 import com.example.sep4_android.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -36,6 +36,8 @@ public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 @Override
 public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.dataInformation.setText(cO2Data.get(position).getCo2Level() + " ppm");
+        holder.dateID.setText(cO2Data.get(position).getCo2Id() + "");
+        holder.dataDate.setText(cO2Data.get(position).getTime().toString() + "");
         }
 
 @Override
@@ -51,11 +53,15 @@ public void updateCO2Data(ArrayList<CO2> cO2Data)
 
 class ViewHolder extends RecyclerView.ViewHolder{
     private final TextView dataInformation;
+    private final TextView dataDate;
+    private final TextView dateID;
 
     ViewHolder (@NonNull View itemView)
     {
         super(itemView);
-        this.dataInformation = itemView.findViewById(R.id.recycler_view_text);
+        this.dataInformation = itemView.findViewById(R.id.text_name);
+        this.dataDate = itemView.findViewById(R.id.text_date);
+        this.dateID = itemView.findViewById(R.id.text_id);
     }
     }
 }

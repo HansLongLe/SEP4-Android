@@ -3,6 +3,8 @@ package com.example.sep4_android.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Timestamp;
+
 public class Temperature {
     @SerializedName("temperatureId")
     @Expose
@@ -10,13 +12,13 @@ public class Temperature {
     @SerializedName("temperature")
     @Expose
     private Double temperature;
-    private String time;
+    private Timestamp time;
 
 
     public Temperature() {
     }
 
-    public Temperature(Integer temperatureId, Double temperature, String time) {
+    public Temperature(Integer temperatureId, Double temperature, Timestamp time) {
         super();
         this.temperatureId = temperatureId;
         this.temperature = temperature;
@@ -39,11 +41,11 @@ public class Temperature {
         this.temperature = temperature;
     }
 
-    public String getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 }

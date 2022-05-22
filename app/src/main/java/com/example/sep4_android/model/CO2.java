@@ -3,6 +3,8 @@ package com.example.sep4_android.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Timestamp;
+
 public class CO2 {
     @SerializedName("co2Id")
     @Expose
@@ -10,9 +12,9 @@ public class CO2 {
     @SerializedName("co2Level")
     @Expose
     private int co2Level;
-    private String time;
+    private Timestamp time;
 
-    public CO2(int co2Id, int co2Level, String time)
+    public CO2(int co2Id, int co2Level, Timestamp time)
     {
         this.co2Id = co2Id;
         this.co2Level = co2Level;
@@ -35,11 +37,11 @@ public class CO2 {
         this.co2Id = co2Id;
     }
 
-    public String getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 }

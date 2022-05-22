@@ -38,6 +38,8 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
     @Override
     public void onBindViewHolder(@NonNull TemperatureAdapter.ViewHolder holder, int position) {
         holder.dataInformation.setText(temperatureData.get(position).getTemperature() + " °C");
+        holder.dataDate.setText(temperatureData.get(position).getTime().toString() + "");
+        holder.dateID.setText(temperatureData.get(position).getTemperatureId() + "");
     }
 
     @Override
@@ -54,11 +56,15 @@ public class TemperatureAdapter extends RecyclerView.Adapter<TemperatureAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView dataInformation;
+        private final TextView dataDate;
+        private final TextView dateID;
 
         ViewHolder (@NonNull View itemView)
         {
             super(itemView);
-            this.dataInformation = itemView.findViewById(R.id.recycler_view_text);
+            this.dataInformation = itemView.findViewById(R.id.text_name);
+            this.dataDate = itemView.findViewById(R.id.text_date);
+            this.dateID = itemView.findViewById(R.id.text_id);
         }
     }
 }

@@ -24,6 +24,7 @@ import com.example.sep4_android.model.Humidity;
 import com.example.sep4_android.viewModel.CO2ViewModel;
 import com.example.sep4_android.viewModel.HumidityViewModel;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class HumidityFragment extends Fragment {
@@ -31,6 +32,8 @@ public class HumidityFragment extends Fragment {
     private HumidityViewModel mViewModel;
     private HumidityAdapter humidityAdapter;
     private ArrayList<Humidity> humidityArrayList;
+    private ArrayList<Humidity> filteredHumidity;
+    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
     private String[] items = {"Last hour", "Today", "Past 7 days", "Last month"};
     private View view;
@@ -57,6 +60,7 @@ public class HumidityFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(HumidityViewModel.class);
         mViewModel.getHumidity().observe(getViewLifecycleOwner(), humidityList -> {
             this.humidityArrayList = humidityList;
+            filteredHumidity = humidityList;
             humidityAdapter.updateHumidityData(humidityList);
         });
         recyclerView.setAdapter(humidityAdapter);
@@ -73,7 +77,48 @@ public class HumidityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(view.getContext(), "Item:"+item,Toast.LENGTH_SHORT).show();
+                if (!humidityArrayList.isEmpty())
+                {
+                    filteredHumidity = new ArrayList<>();
+                    switch (adapterView.getItemAtPosition(i).toString()){
+                        case "Last hour":
+                            for (Humidity humidity: humidityArrayList) {
+                                if (timestamp.getTime() - humidity.getTime().getTime() <= 3600000)
+                                {
+                                    filteredHumidity.add(humidity);
+                                    humidityAdapter.updateHumidityData(filteredHumidity);
+                                }
+                            }
+                            break;
+                        case "Today":
+                            for (Humidity humidity: humidityArrayList) {
+                                if (humidity.getTime().getYear() == timestamp.getYear() && humidity.getTime().getMonth() == timestamp.getMonth()
+                                        && humidity.getTime().getDate() == timestamp.getDate())
+                                {
+                                    filteredHumidity.add(humidity);
+                                    humidityAdapter.updateHumidityData(filteredHumidity);
+                                }
+                            }
+                            break;
+                        case "Past 7 days":
+                            for (Humidity humidity: humidityArrayList) {
+                                if ((timestamp.getTime() - humidity.getTime().getTime())/1000 <= 604800)
+                                {
+                                    filteredHumidity.add(humidity);
+                                    humidityAdapter.updateHumidityData(filteredHumidity);
+                                }
+                            }
+                            break;
+                        case "Last month":
+                            for (Humidity humidity: humidityArrayList) {
+                                if ((timestamp.getTime() - humidity.getTime().getTime())/1000 <= 2628000){
+                                    filteredHumidity.add(humidity);
+                                    humidityAdapter.updateHumidityData(filteredHumidity);
+                                }
+                            }
+                            break;
+                    }
+                }
             }
         });
 

@@ -37,6 +37,8 @@ public class HumidityAdapter extends RecyclerView.Adapter<HumidityAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull HumidityAdapter.ViewHolder holder, int position) {
         holder.dataInformation.setText(Double.toString(humidityData.get(position).getHumidity()) + " g/m³");
+        holder.dataDate.setText(humidityData.get(position).getTime().toString() + "");
+        holder.dateID.setText(humidityData.get(position).getHumidityId() + "");
     }
 
     @Override
@@ -52,11 +54,15 @@ public class HumidityAdapter extends RecyclerView.Adapter<HumidityAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private final TextView dataInformation;
+        private final TextView dataDate;
+        private final TextView dateID;
 
         ViewHolder (@NonNull View itemView)
         {
             super(itemView);
-            this.dataInformation = itemView.findViewById(R.id.recycler_view_text);
+            this.dataInformation = itemView.findViewById(R.id.text_name);
+            this.dataDate = itemView.findViewById(R.id.text_date);
+            this.dateID = itemView.findViewById(R.id.text_id);
         }
     }
 }

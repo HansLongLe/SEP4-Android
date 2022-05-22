@@ -3,6 +3,8 @@ package com.example.sep4_android.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Timestamp;
+
 public class Sensor {
     @SerializedName("temperature")
     @Expose
@@ -12,7 +14,7 @@ public class Sensor {
     private Humidity humidity;
     @SerializedName("time")
     @Expose
-    private String time;
+    private Timestamp time;
     @SerializedName("sensorId")
     @Expose
     private Integer sensorId;
@@ -24,7 +26,7 @@ public class Sensor {
     }
 
 
-    public Sensor(Temperature temperature, Humidity humidity, String time, Integer sensorId, CO2 co2) {
+    public Sensor(Temperature temperature, Humidity humidity, Timestamp time, Integer sensorId, CO2 co2) {
         super();
         this.temperature = temperature;
         this.humidity = humidity;
@@ -49,11 +51,11 @@ public class Sensor {
         this.humidity = humidity;
     }
 
-    public String getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 

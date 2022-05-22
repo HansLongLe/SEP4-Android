@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">SEP4-Android</string>
+    <string name="text_id">text id</string>
+    <string name="text_data">text data</string>
+    <string name="text_date">text date</string>
     <string name="create_account_title">Welcome to Smart Gym</string>
     <string name="input_email_hint">Email Address</string>
     <string name="input_password_hint">Password</string>
