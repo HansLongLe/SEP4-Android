@@ -10,8 +10,8 @@
     <string name="btn_register">Register</string>
     <string name="login_redirect_txt">Already have an account?</string>
     <string name="log_in_btn">Log In</string>
-    <string name="login_title">Welcome back!</string>
-    <string name="create_account_redirect_txt">Click here to sign up.</string>
+    <string name="login_title">Welcome back! 👋</string>
+    <string name="create_account_redirect_txt">Click here to sign up</string>
     <string name="choose_time">Choose time</string>
     <string name="c_o2_current_state">CO2 current state:</string>
     <string name="humidity_current_state">Humidity current state:</string>
@@ -21,7 +21,10 @@
     <string name="passwords_not_matching">Passwords do not match. Please try again.</string>
     <string name="i_forgot_my_password">I forgot my password</string>
     <string name="forgot_password_title">Please enter the email attached to your account.</string>
+    <string name="email_empty_error">Please enter your email address</string>
+    <string name="password_empty_error">Please enter your password</string>
     <string name="forgot_password_btn">Send email</string>
+    <string name="reset_email_sent">A reset password email has been sent to %1$s</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_web_client" translatable="false">490495298947-rfqhae5k7p9lbcdlp72rfu1bepb7b7e0.apps.googleusercontent.com</string>
 </resources>

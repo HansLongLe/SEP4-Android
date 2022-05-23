@@ -2,6 +2,7 @@ package com.example.sep4_android.view;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,15 +42,13 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private GoogleSignInClient oneTapClient;
-//    private BeginSignInRequest signInRequest;
-    // private GoogleSignInClient googleSignInClient;
     private LoginViewModel mViewModel;
-    private TextView redirectLink, forgotPasswordLink, error;
+    private TextView redirectLink, forgotPasswordLink, error, title;
     private Button btn;
     private SignInButton googleBtn;
     private View view;
     private Intent mainActivityIntent;
-    private EditText email, password;
+    private TextInputLayout email, password;
     private static final String TAG = "GOOGLE_SIGN_IN";
 
     public static LoginFragment newInstance() {
@@ -55,19 +56,28 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.login_fragment, container, false);
         init();
+        ((LoginCreateAccountPage) requireActivity()).setTitleGradient(title);
         setupOneTapLogin();
         btn.setOnClickListener(v -> {
-            if (email.getText() != null && password.getText() != null) {
-                login(email.getText().toString(), password.getText().toString());
+            if (email.getEditText() != null && password.getEditText() != null) {
+                login(email.getEditText().getText().toString(), password.getEditText().getText().toString());
             }
         });
         redirectLink.setOnClickListener(v -> redirectToCreateAccount());
         forgotPasswordLink.setOnClickListener(v -> redirectToForgotPassword());
         googleBtn.setOnClickListener(v -> loginWithGoogle());
+        requireActivity()
+                .getOnBackPressedDispatcher()
+                .addCallback(requireActivity(), new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        getParentFragmentManager().beginTransaction().replace(container.getId(), new CreateAccountFragment()).commit();
+                    }
+                });
         return view;
     }
 
@@ -76,13 +86,16 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mainActivityIntent = new Intent(getActivity(), MainActivity.class);
+        title = view.findViewById(R.id.loginTitle);
         email = view.findViewById(R.id.loginEmail);
-      password = view.findViewById(R.id.loginPassword);
+        password = view.findViewById(R.id.loginPassword);
         error = view.findViewById(R.id.loginError);
         btn = view.findViewById(R.id.loginBtn);
         googleBtn = view.findViewById(R.id.loginGoogleBtn);
         redirectLink = view.findViewById(R.id.createAccountRedirect);
         forgotPasswordLink = view.findViewById(R.id.forgotPasswordLink);
+        forgotPasswordLink.setPaintFlags(forgotPasswordLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        redirectLink.setPaintFlags(redirectLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void setupOneTapLogin() {
@@ -123,7 +136,7 @@ public class LoginFragment extends Fragment {
                                                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                                     } else {
                                         // Log in failed
-                                        Log.w("Google log in", task.getException().getMessage());
+                                        Log.w(TAG, task.getException().getMessage());
                                     }
                                 });
 
@@ -143,27 +156,26 @@ public class LoginFragment extends Fragment {
     private void login(String email, String password) {
 
         if (email == null || email.equals("")) {
-            setError("Please enter your email address", "#FF0000");
+            setError(getString(R.string.email_empty_error), getString(0+R.color.red));
             return;
         }
 
         if (password == null || password.equals("")) {
-            setError("Please enter your password", "#FF0000");
+            setError(getString(R.string.password_empty_error), getString(0+R.color.red));
             return;
         }
 
-        setError("", "#000000");
+        setError("", getString(0+R.color.black));
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), task -> {
-                   if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
                         // Login successful
-                       startActivity(mainActivityIntent);
-                   }
-                   else {
-                       // Login failed
-                       Log.w("A", Objects.requireNonNull(task.getException()).getMessage());
-                       setError(Objects.requireNonNull(task.getException()).getMessage(), "#FF0000");
-                   }
+                        startActivity(mainActivityIntent);
+                    } else {
+                        // Login failed
+                        Log.w("A", Objects.requireNonNull(task.getException()).getMessage());
+                        setError(Objects.requireNonNull(task.getException()).getMessage(), getString(0+R.color.red));
+                    }
                 });
     }
 

@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,58 +32,93 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/loginEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="@string/input_email_hint" />
+                android:hint="@string/input_email_hint"
+                android:layout_marginBottom="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/loginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/input_password_hint"/>
+                android:hint="@string/input_password_hint"
+                app:endIconMode="password_toggle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TextView
-                android:id="@+id/createAccountRedirect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/create_account_redirect_txt" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    />
 
-            <Button
-                android:id="@+id/loginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/log_in_btn" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/loginError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FF0000"
+                android:textColor="@color/red"
                 android:text="" />
+
+            <TextView
+                android:id="@+id/forgotPasswordLink"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_color"
+                android:text="@string/i_forgot_my_password" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:insetLeft="0dp"
+                android:insetRight="0dp"
+                android:backgroundTint="@color/main_color"
+                android:text="@string/log_in_btn" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/forgotPasswordLink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/i_forgot_my_password" />
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/loginGoogleBtn"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:layout_marginVertical="5dp"
+                android:text="or" />
+
+            <TextView
+                android:id="@+id/createAccountRedirect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:textColor="@color/main_color"
+                android:text="@string/create_account_redirect_txt" />
         </LinearLayout>
     </LinearLayout>
 
