@@ -4,11 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/create_account_fragment.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/fragment_forgot_password.xml" value="0.176" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/fragment_user_list.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/humidity_fragment.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/login_fragment.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/motion_fragment.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/recycler_view_item.xml" value="0.176" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/temp_fragment.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Honza/Documents/GitHub/SEP4-Android/app/src/main/res/layout/user_row.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/dropdown_menu_item.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/layout/recycler_view_item.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Vosta/OneDrive/Documents/GitHub/SEP4-Android/app/src/main/res/menu/appbar.xml" value="0.371875" />
         <entry key="..\:/Users/hansl/Documents/GitHub/SEP4-Android/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/hansl/Documents/GitHub/SEP4-Android/app/src/main/res/layout/c_o2_fragment.xml" value="0.358695652173913" />
       </map>
