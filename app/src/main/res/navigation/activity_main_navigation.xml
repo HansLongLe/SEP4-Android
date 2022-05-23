@@ -28,7 +28,14 @@
         tools:layout="@layout/motion_fragment" />
     <fragment
         android:id="@+id/usersListFragmentt"
-        android:name="com.example.sep4_android.view.UsersListFragment"
+        android:name="com.example.sep4_android.view.UserListFragment"
         android:label="users_list_fragment"
-        tools:layout="@layout/users_list_fragment"/>
+        tools:layout="@layout/fragment_user_list"/>
+    <fragment
+        android:id="@+id/createUserFragment"
+        android:name="com.example.sep4_android.view.CreateUserFragment"
+        android:label="fragment_create_user"
+        tools:layout="@layout/fragment_create_user" />
+
+
 </navigation>
