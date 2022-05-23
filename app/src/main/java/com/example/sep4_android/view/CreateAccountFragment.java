@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.model.Statuses;
 import com.example.sep4_android.model.User;
 import com.example.sep4_android.viewModel.CreateAccountViewModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -29,19 +30,12 @@ import java.util.Objects;
 
 public class CreateAccountFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
     private Intent mainActivityIntent;
     private CreateAccountViewModel mViewModel;
     private View view;
     private TextView title, errorMsg, redirectLink;
     private TextInputLayout email, password, passwordConfirm;
     private Button btn;
-    private DatabaseReference databaseReference;
-    private static final String TAG = "FIREBASE_CREATE_ACCOUNT";
-
-    public static CreateAccountFragment newInstance() {
-        return new CreateAccountFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -54,7 +48,7 @@ public class CreateAccountFragment extends Fragment {
             if (email.getEditText() != null
                     && password.getEditText() != null
                     && passwordConfirm.getEditText() != null) {
-                createAccount(email.getEditText().getText().toString(),
+                mViewModel.createAccount(email.getEditText().getText().toString(),
                         password.getEditText().getText().toString(),
                         passwordConfirm.getEditText().getText().toString());
             }
@@ -65,14 +59,11 @@ public class CreateAccountFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) startActivity(mainActivityIntent);
+        if (mViewModel.isLoggedIn()) startActivity(mainActivityIntent);
     }
 
     private void init() {
         mViewModel = new ViewModelProvider(this).get(CreateAccountViewModel.class);
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
         mainActivityIntent = new Intent(getActivity(), MainActivity.class);
         title = view.findViewById(R.id.createAccountTitle);
         errorMsg = view.findViewById(R.id.createAccountError);
@@ -82,41 +73,13 @@ public class CreateAccountFragment extends Fragment {
         email = view.findViewById(R.id.createAccountEmail);
         password = view.findViewById(R.id.createAccountPassword);
         passwordConfirm = view.findViewById(R.id.createAccountConfirmPassword);
-    }
-
-    private void createAccount(String email, String password, String passwordConfirm) {
-        setError("", getString(0+R.color.black));
-
-        if (email == null || email.equals("")) {
-            setError(getString(R.string.email_empty_error), getString(0+R.color.red));
-            return;
-        }
-
-        if (password == null || password.equals("")) {
-            setError(getString(R.string.password_empty_error), getString(0+R.color.red));
-            return;
-        }
-
-        if (!password.equals(passwordConfirm)) {
-            setError(getString(R.string.passwords_not_matching), getString(0+R.color.red));
-            return;
-        }
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity(), task -> {
-                    if (task.isSuccessful()) {
-                        if (task.getResult().getUser() != null) {
-                            // DOESN'T WORK???????
-                            databaseReference.child("users").child(task.getResult().getUser().getUid()).setValue(new User(email));
-                        }
-                        // Create account successful
-                        startActivity(mainActivityIntent);
-                    }
-                    else {
-                        Log.w(TAG, Objects.requireNonNull(task.getException()).getLocalizedMessage());
-                        setError(Objects.requireNonNull(task.getException()).getLocalizedMessage(), getString(0+R.color.red));
-                    }
-                });
+        mViewModel.getAuthStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status.getStatus().equals(Statuses.SUCCESS.name())) {
+                startActivity(mainActivityIntent);
+            } else if (status.getStatus().equals(Statuses.ERROR.name())) {
+                setError(status.getMsg(), status.getMsgColor());
+            }
+        });
     }
 
     private void redirectToLogin() {
@@ -127,5 +90,4 @@ public class CreateAccountFragment extends Fragment {
         errorMsg.setTextColor(Color.parseColor(color));
         errorMsg.setText(message);
     }
-
 }
