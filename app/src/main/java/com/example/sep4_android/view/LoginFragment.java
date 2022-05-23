@@ -173,8 +173,8 @@ public class LoginFragment extends Fragment {
                         startActivity(mainActivityIntent);
                     } else {
                         // Login failed
-                        Log.w("A", Objects.requireNonNull(task.getException()).getMessage());
-                        setError(Objects.requireNonNull(task.getException()).getMessage(), getString(0+R.color.red));
+                        Log.w("A", Objects.requireNonNull(task.getException()).getLocalizedMessage());
+                        setError(Objects.requireNonNull(task.getException()).getLocalizedMessage(), getString(0+R.color.red));
                     }
                 });
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class CreateAccountFragment extends Fragment {
     private TextInputLayout email, password, passwordConfirm;
     private Button btn;
     private DatabaseReference databaseReference;
+    private static final String TAG = "FIREBASE_CREATE_ACCOUNT";
 
     public static CreateAccountFragment newInstance() {
         return new CreateAccountFragment();
@@ -110,10 +112,11 @@ public class CreateAccountFragment extends Fragment {
                         // Create account successful
                         startActivity(mainActivityIntent);
                     }
-                    else
-                        setError(Objects.requireNonNull(task.getException()).getMessage(), getString(0+R.color.red));
+                    else {
+                        Log.w(TAG, Objects.requireNonNull(task.getException()).getLocalizedMessage());
+                        setError(Objects.requireNonNull(task.getException()).getLocalizedMessage(), getString(0+R.color.red));
+                    }
                 });
-        startActivity(mainActivityIntent);
     }
 
     private void redirectToLogin() {
