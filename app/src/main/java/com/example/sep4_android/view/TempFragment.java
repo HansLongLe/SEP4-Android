@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
@@ -67,6 +68,8 @@ public class TempFragment extends Fragment {
             this.temperatureArrayList = temperatureList;
             filteredTemperature = temperatureList;
             temperatureAdapter.updateTemperatureData(temperatureList);
+            TextView currentTemperature = view.findViewById(R.id.current_temperature);
+            currentTemperature.setText(temperatureArrayList.get(0).getTemperature() + "°C");
         });
         recyclerView.setAdapter(temperatureAdapter);
 

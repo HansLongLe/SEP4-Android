@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
@@ -62,6 +63,8 @@ public class HumidityFragment extends Fragment {
             this.humidityArrayList = humidityList;
             filteredHumidity = humidityList;
             humidityAdapter.updateHumidityData(humidityList);
+            TextView currentHumidity = view.findViewById(R.id.current_humidity);
+            currentHumidity.setText(humidityArrayList.get(0).getHumidity() + "g/m³");
         });
         recyclerView.setAdapter(humidityAdapter);
 

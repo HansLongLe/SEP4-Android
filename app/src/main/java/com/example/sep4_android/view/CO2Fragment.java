@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
@@ -59,11 +60,14 @@ public class CO2Fragment extends Fragment {
 
         co2Adapter = new CO2Adapter(filteredCo2s);
 
+
         mViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
         mViewModel.getCO2().observe(getViewLifecycleOwner(), co2List -> {
             this.co2s = co2List;
             filteredCo2s = co2s;
             co2Adapter.updateCO2Data(co2List);
+            TextView currentCO2 = view.findViewById(R.id.current_c_02);
+            currentCO2.setText(co2s.get(0).getCo2Level() + "ppm");
         });
         recyclerView.setAdapter(co2Adapter);
 
