@@ -1,7 +1,7 @@
 package com.example.sep4_android.model;
 
 public class User {
-    String email, password, uid, role;
+    public String email, password, uid, role;
 
     public User(String email, String password, String uid) {
         this.email = email;
@@ -44,5 +44,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

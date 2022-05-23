@@ -104,6 +104,7 @@ public class CreateAccountFragment extends Fragment {
                 .addOnCompleteListener(requireActivity(), task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult().getUser() != null) {
+                            // DOESN'T WORK???????
                             databaseReference.child("users").child(task.getResult().getUser().getUid()).setValue(new User(email));
                         }
                         // Create account successful
