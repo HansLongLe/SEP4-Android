@@ -77,7 +77,7 @@ public class CreateAccountFragment extends Fragment {
             if (status.getStatus().equals(Statuses.SUCCESS.name())) {
                 startActivity(mainActivityIntent);
             } else if (status.getStatus().equals(Statuses.ERROR.name())) {
-                setError(status.getMsg(), status.getMsgColor());
+                setMessage(status.getMsg(), status.getMsgColor());
             }
         });
     }
@@ -86,7 +86,7 @@ public class CreateAccountFragment extends Fragment {
         getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new LoginFragment()).commit();
     }
 
-    private void setError(String message, String color) {
+    private void setMessage(String message, String color) {
         errorMsg.setTextColor(Color.parseColor(color));
         errorMsg.setText(message);
     }

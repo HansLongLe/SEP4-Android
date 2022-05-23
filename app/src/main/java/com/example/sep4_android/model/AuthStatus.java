@@ -1,7 +1,7 @@
 package com.example.sep4_android.model;
 
 public class AuthStatus {
-    private String msg, msgColor, status;
+    private final String msg, msgColor, status;
 
     public AuthStatus(String status, String msg, String msgColor) {
         this.status = status;

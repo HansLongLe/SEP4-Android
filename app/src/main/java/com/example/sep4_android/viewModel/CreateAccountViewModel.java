@@ -35,7 +35,7 @@ public class CreateAccountViewModel extends ViewModel {
 
     public void createAccount(String email, String password, String passwordConfirm) {
         Resources res = App.getContext().getResources();
-        authStatus.setValue(new AuthStatus(Statuses.ERROR.name(), "", res.getString(0+R.color.black)));
+        authStatus.setValue(new AuthStatus(Statuses.IDLE.name(), "", res.getString(0+R.color.black)));
 
         if (email == null || email.equals("")) {
             authStatus.setValue(new AuthStatus(Statuses.ERROR.name(), res.getString(R.string.email_empty_error), res.getString(0+R.color.red)));
