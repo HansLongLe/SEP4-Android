@@ -1,6 +1,5 @@
 package com.example.sep4_android.view;
 
-import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +10,15 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.viewModel.ForgotPasswordViewModel;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ForgotPasswordFragment extends Fragment {
-
-    private FirebaseAuth mAuth;
+    private ForgotPasswordViewModel mViewModel;
     private View view;
     private TextView err;
     private TextInputLayout in;
@@ -40,38 +39,19 @@ public class ForgotPasswordFragment extends Fragment {
                     }
                 });
         if (in.getEditText() != null)
-        btn.setOnClickListener(v -> resetPassword(in.getEditText().getText().toString()));
+        btn.setOnClickListener(v -> mViewModel.resetPassword(in.getEditText().getText().toString()));
         return view;
     }
 
     private void init() {
-        mAuth = FirebaseAuth.getInstance();
+        mViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
         err = view.findViewById(R.id.forgotPassError);
         in = view.findViewById(R.id.forgotPassIn);
         btn = view.findViewById(R.id.forgotPassBtn);
+        mViewModel.getAuthStatus().observe(getViewLifecycleOwner(), status -> setMessage(status.getMsg(), status.getMsgColor()));
     }
 
-    private void resetPassword(String email) {
-        if (email == null || email.equals("")) {
-            setError(getString(R.string.email_empty_error), getString(0+R.color.red));
-            return;
-        }
-
-        mAuth.setLanguageCode("en");
-        setError("", getString(0+R.color.black));
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(requireActivity(), task -> {
-                    //
-                })
-                .addOnSuccessListener(requireActivity(), task -> {
-                    setError(getString(R.string.reset_email_sent, email), getString(0+R.color.green));
-                })
-                .addOnFailureListener(requireActivity(), task -> {
-                    setError(task.getMessage(), getString(0+R.color.red));
-                });
-    }
-
-    private void setError(String message, String color) {
+    private void setMessage(String message, String color) {
         err.setTextColor(Color.parseColor(color));
         err.setText(message);
     }

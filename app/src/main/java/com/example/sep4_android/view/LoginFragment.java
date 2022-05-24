@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -19,29 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sep4_android.R;
-import com.example.sep4_android.model.User;
+import com.example.sep4_android.model.Statuses;
 import com.example.sep4_android.viewModel.LoginViewModel;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Objects;
 
 public class LoginFragment extends Fragment {
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
-    private GoogleSignInClient oneTapClient;
     private LoginViewModel mViewModel;
     private TextView redirectLink, forgotPasswordLink, error, title;
     private Button btn;
@@ -49,27 +30,22 @@ public class LoginFragment extends Fragment {
     private View view;
     private Intent mainActivityIntent;
     private TextInputLayout email, password;
-    private static final String TAG = "GOOGLE_SIGN_IN";
-
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.login_fragment, container, false);
         init();
+        mViewModel.setupOneTapLogin();
         ((LoginCreateAccountPage) requireActivity()).setTitleGradient(title);
-        setupOneTapLogin();
         btn.setOnClickListener(v -> {
             if (email.getEditText() != null && password.getEditText() != null) {
-                login(email.getEditText().getText().toString(), password.getEditText().getText().toString());
+                mViewModel.login(email.getEditText().getText().toString(), password.getEditText().getText().toString());
             }
         });
         redirectLink.setOnClickListener(v -> redirectToCreateAccount());
         forgotPasswordLink.setOnClickListener(v -> redirectToForgotPassword());
-        googleBtn.setOnClickListener(v -> loginWithGoogle());
+        googleBtn.setOnClickListener(v -> mViewModel.triggerGooglePopup());
         requireActivity()
                 .getOnBackPressedDispatcher()
                 .addCallback(requireActivity(), new OnBackPressedCallback(true) {
@@ -83,8 +59,6 @@ public class LoginFragment extends Fragment {
 
     private void init() {
         mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
         mainActivityIntent = new Intent(getActivity(), MainActivity.class);
         title = view.findViewById(R.id.loginTitle);
         email = view.findViewById(R.id.loginEmail);
@@ -96,87 +70,26 @@ public class LoginFragment extends Fragment {
         forgotPasswordLink = view.findViewById(R.id.forgotPasswordLink);
         forgotPasswordLink.setPaintFlags(forgotPasswordLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         redirectLink.setPaintFlags(redirectLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-    }
-
-    private void setupOneTapLogin() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client))
-                .requestEmail()
-                .build();
-        oneTapClient = GoogleSignIn.getClient(requireActivity(), gso);
+        mViewModel.getIntentData().observe(getViewLifecycleOwner(), intent -> startActivityForResult(intent, 100));
+        mViewModel.getAuthStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status.getStatus().equals(Statuses.SUCCESS.name())) {
+                startActivity(mainActivityIntent);
+            } else if (status.getStatus().equals(Statuses.ERROR.name())) {
+                setMessage(status.getMsg(), status.getMsgColor());
+            } else if (status.getStatus().equals(Statuses.GOOGLE_SUCCESS.name())) {
+                startActivity(new Intent(requireActivity()
+                        , MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 100) {
-            Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn
-                    .getSignedInAccountFromIntent(data);
-
-            if (signInAccountTask.isSuccessful()) {
-                try {
-                    GoogleSignInAccount googleSignInAccount = signInAccountTask
-                            .getResult(ApiException.class);
-                    if (googleSignInAccount != null) {
-                        AuthCredential authCredential = GoogleAuthProvider
-                                .getCredential(googleSignInAccount.getIdToken()
-                                        , null);
-                        // Check credentials
-                        mAuth.signInWithCredential(authCredential)
-                                .addOnCompleteListener(requireActivity(), task -> {
-                                    if (task.isSuccessful()) {
-                                        // add user to db
-                                        FirebaseUser currentUser = task.getResult().getUser();
-                                        if (currentUser != null) {
-                                            databaseReference.child("users").child(currentUser.getUid()).setValue(new User(currentUser.getEmail()));
-                                        }
-                                        startActivity(new Intent(requireActivity()
-                                                , MainActivity.class)
-                                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    } else {
-                                        // Log in failed
-                                        Log.w(TAG, task.getException().getMessage());
-                                    }
-                                });
-
-                    }
-                } catch (ApiException e) {
-                    e.printStackTrace();
-                }
-            }
+            mViewModel.loginWithGoogle(data);
         }
-    }
-
-    private void loginWithGoogle() {
-        Intent intent = oneTapClient.getSignInIntent();
-        startActivityForResult(intent, 100);
-    }
-
-    private void login(String email, String password) {
-
-        if (email == null || email.equals("")) {
-            setError(getString(R.string.email_empty_error), getString(0+R.color.red));
-            return;
-        }
-
-        if (password == null || password.equals("")) {
-            setError(getString(R.string.password_empty_error), getString(0+R.color.red));
-            return;
-        }
-
-        setError("", getString(0+R.color.black));
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity(), task -> {
-                    if (task.isSuccessful()) {
-                        // Login successful
-                        startActivity(mainActivityIntent);
-                    } else {
-                        // Login failed
-                        Log.w("A", Objects.requireNonNull(task.getException()).getLocalizedMessage());
-                        setError(Objects.requireNonNull(task.getException()).getLocalizedMessage(), getString(0+R.color.red));
-                    }
-                });
     }
 
     private void redirectToCreateAccount() {
@@ -187,7 +100,7 @@ public class LoginFragment extends Fragment {
         getParentFragmentManager().beginTransaction().replace(R.id.authFragment, new ForgotPasswordFragment()).commit();
     }
 
-    private void setError(String message, String color) {
+    private void setMessage(String message, String color) {
         error.setTextColor(Color.parseColor(color));
         error.setText(message);
     }
