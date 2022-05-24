@@ -41,7 +41,7 @@ public class CreateUserFragment extends Fragment {
 
         saveButton.setOnClickListener(v -> {
             if(email.getEditText() != null && password.getEditText() != null) {
-                createAccount(email.getEditText().getText().toString(), password.getEditText().getText().toString());
+                createAccount(email.getEditText().getText().toString().trim(), password.getEditText().getText().toString());
             }
         });
 
@@ -80,6 +80,7 @@ public class CreateUserFragment extends Fragment {
                             databaseReference.child("users").child(task.getResult().getUser().getUid()).setValue(new User(email));
                         }
                         Toast.makeText(getContext(), email + " added to user list.", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
                         startActivity(new Intent(requireActivity(), MainActivity.class));
                     }
                         else

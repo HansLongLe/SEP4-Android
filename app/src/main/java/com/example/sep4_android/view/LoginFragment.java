@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
         ((LoginCreateAccountPage) requireActivity()).setTitleGradient(title);
         btn.setOnClickListener(v -> {
             if (email.getEditText() != null && password.getEditText() != null) {
-                mViewModel.login(email.getEditText().getText().toString(), password.getEditText().getText().toString());
+                mViewModel.login(email.getEditText().getText().toString().trim(), password.getEditText().getText().toString());
             }
         });
         redirectLink.setOnClickListener(v -> redirectToCreateAccount());
@@ -73,6 +73,7 @@ public class LoginFragment extends Fragment {
         mViewModel.getIntentData().observe(getViewLifecycleOwner(), intent -> startActivityForResult(intent, 100));
         mViewModel.getAuthStatus().observe(getViewLifecycleOwner(), status -> {
             if (status.getStatus().equals(Statuses.SUCCESS.name())) {
+                getActivity().finish();
                 startActivity(mainActivityIntent);
             } else if (status.getStatus().equals(Statuses.ERROR.name())) {
                 setMessage(status.getMsg(), status.getMsgColor());

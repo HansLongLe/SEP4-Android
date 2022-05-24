@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -18,6 +19,7 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.model.Roles;
 import com.example.sep4_android.model.User;
 import com.example.sep4_android.model.UserList;
+import com.example.sep4_android.viewModel.WindowViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavController navController;
     private boolean buttonState = true;
+    WindowViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = new ViewModelProvider(this).get(WindowViewModel.class);
         bottomNavigation();
         onWindowButtonClick();
     }
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 buttonState = true;
             }
+            viewModel.setWindowStatus(buttonState);
         });
     }
 
