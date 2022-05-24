@@ -13,4 +13,9 @@
         android:orderInCategory="100"
         android:title="Users"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/create_user"
+        android:title="Create user"
+        app:showAsAction="never"/>
 </menu>

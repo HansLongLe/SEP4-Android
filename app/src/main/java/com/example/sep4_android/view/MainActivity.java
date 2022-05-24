@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -77,26 +76,23 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     UserList users = snapshot.getValue(UserList.class);
-                    Log.w("USERS", users.size()+"");
                     if (users != null) {
                         if (users.containsKey(user.getUid())) {
                             User userInDb = users.get(user.getUid());
                             // if the user is an admin
                             if (userInDb.role.equals(Roles.ADMIN.name().toLowerCase())) {
                                 // hide menu item
-                                Log.w("TEST", "ISADMIN");
                                 menu.findItem(R.id.users_list).setVisible(true);
+                                menu.findItem(R.id.create_user).setVisible(true);
                             } else {
-                                Log.w("TEST", "ISUser");
                                 menu.findItem(R.id.users_list).setVisible(false);
+                                menu.findItem(R.id.create_user).setVisible(false);
                             }
                         }
                     }
                 }
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
         }
         return true;
@@ -113,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
                FirebaseAuth.getInstance().signOut();
                finish();
                startActivity(new Intent(this, LoginCreateAccountPage.class));
+               break;
+           case R.id.create_user:
+               getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMainActivity, new CreateUserFragment()).commit();
                break;
        }
         return true;
