@@ -62,4 +62,9 @@ dependencies {
 
     //Firebase realtime database
     implementation 'com.google.firebase:firebase-database'
+
+    //testing
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "org.mockito:mockito-core:4.2.0"
+    testImplementation "io.mockk:mockk:1.12.3"
 }
