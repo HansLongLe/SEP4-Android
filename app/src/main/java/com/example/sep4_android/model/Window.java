@@ -23,8 +23,7 @@ public class Window implements Serializable {
     }
 
 
-    public Window(Integer windowId, Timestamp timestamp, Boolean windowOpen) {
-        this.windowId = windowId;
+    public Window(Timestamp timestamp, Boolean windowOpen) {
         this.timestamp = timestamp;
         this.windowOpen = windowOpen;
     }

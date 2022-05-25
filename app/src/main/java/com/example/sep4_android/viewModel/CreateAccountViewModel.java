@@ -11,6 +11,7 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.model.AuthStatus;
 import com.example.sep4_android.model.Statuses;
 import com.example.sep4_android.model.User;
+import com.example.sep4_android.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -20,12 +21,13 @@ public class CreateAccountViewModel extends ViewModel {
     private final FirebaseAuth mAuth;
     private final DatabaseReference databaseReference;
     private final MutableLiveData<AuthStatus> authStatus;
-
+    private final UserRepository userRepository;
 
     public CreateAccountViewModel() {
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         authStatus = new MutableLiveData<>();
+        userRepository = UserRepository.getInstance();
     }
 
     public boolean isLoggedIn() {
@@ -57,7 +59,7 @@ public class CreateAccountViewModel extends ViewModel {
                     if (task.isSuccessful()) {
                         if (task.getResult().getUser() != null) {
                             // Create account successful
-                            databaseReference.child("users").child(task.getResult().getUser().getUid()).setValue(new User(email));
+                            userRepository.createUser(task, email);
                             authStatus.setValue(new AuthStatus(Statuses.SUCCESS.name(), "", res.getString(0+R.color.black)));
                         }
                     }

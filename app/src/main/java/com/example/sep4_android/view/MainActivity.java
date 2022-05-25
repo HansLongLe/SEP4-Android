@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,6 +20,8 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.model.Roles;
 import com.example.sep4_android.model.User;
 import com.example.sep4_android.model.UserList;
+import com.example.sep4_android.model.Window;
+import com.example.sep4_android.repository.UserRepository;
 import com.example.sep4_android.viewModel.WindowViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,20 +33,44 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     NavController navController;
     private boolean buttonState = true;
     WindowViewModel viewModel;
+    UserRepository userRepository;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(WindowViewModel.class);
+        userRepository = UserRepository.getInstance();
+        floatingActionButton = findViewById(R.id.windowButton);
         bottomNavigation();
         onWindowButtonClick();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userRepository.userIsOnline();
+        viewModel.getWindowState().observe(this, window -> {
+            buttonState = window.getWindowOpen();
+            changeWindowIcon();
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        userRepository.userIsOffline();
     }
 
     private void bottomNavigation() {
@@ -53,20 +80,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onWindowButtonClick() {
-        FloatingActionButton floatingActionButton = findViewById(R.id.windowButton);
         floatingActionButton.setOnClickListener(view -> {
-            if(buttonState) {
-                floatingActionButton.setImageResource(R.drawable.windows);
-                floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.main_color)));
-                buttonState = false;
-            }
-            else if (!buttonState) {
-                floatingActionButton.setImageResource(R.drawable.window);
-                floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                buttonState = true;
-            }
+            buttonState = !buttonState;
+            changeWindowIcon();
             viewModel.setWindowStatus(buttonState);
         });
+    }
+    private void changeWindowIcon()
+    {
+        if(!buttonState) {
+            floatingActionButton.setImageResource(R.drawable.window);
+            floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+        }
+        else {
+            floatingActionButton.setImageResource(R.drawable.windows);
+            floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.main_color)));
+        }
     }
 
     @Override
