@@ -65,8 +65,11 @@ public class WindowRepository {
         call.enqueue(new Callback<ArrayList<Window>>() {
             @Override
             public void onResponse(Call<ArrayList<Window>> call, Response<ArrayList<Window>> response) {
-                ArrayList<Window> windows = response.body();
-                windowMutableLiveData.setValue(windows.get(0));
+                if (response.isSuccessful())
+                {
+                    ArrayList<Window> windows = response.body();
+                    windowMutableLiveData.setValue(windows.get(0));
+                }
             }
 
             @Override

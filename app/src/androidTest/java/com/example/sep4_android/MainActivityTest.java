@@ -49,6 +49,13 @@ public class MainActivityTest {
     }
 
     @Test
+    public void clickOnCWindowMenuItem() throws Exception{
+        onView(withId(R.id.windowFragment)).perform(click());
+        onView(withId(R.id.current_window)).check(matches(isDisplayed()));
+    }
+
+
+    @Test
     public void clickOnLogoutMenuItem() throws Exception{
         openActionBarOverflowOrOptionsMenu(
                 ApplicationProvider.getApplicationContext());

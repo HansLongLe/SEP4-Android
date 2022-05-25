@@ -16,7 +16,7 @@
     <string name="c_o2_current_state">CO2 current state:</string>
     <string name="humidity_current_state">Humidity current state:</string>
     <string name="temperature_current_state">Temperature current state:</string>
-    <string name="motion_current_state">Motion current state:</string>
+    <string name="window_current_state">Window current state:</string>
     <string name="current_data">current_data</string>
     <string name="passwords_not_matching">Passwords do not match. Please try again.</string>
     <string name="i_forgot_my_password">I forgot my password</string>
@@ -27,4 +27,8 @@
     <string name="reset_email_sent">A reset password email has been sent to %1$s</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_web_client" translatable="false">490495298947-rfqhae5k7p9lbcdlp72rfu1bepb7b7e0.apps.googleusercontent.com</string>
+    <string name="bottom_nav_menu_window">Window</string>
+    <string name="bottom_nav_menu_co2">CO2</string>
+    <string name="bottom_nav_menu_humidity">Humidity</string>
+    <string name="bottom_nav_menu_temperature">Temperature</string>
 </resources>

@@ -36,12 +36,15 @@ public class CO2Repository {
         call.enqueue(new Callback<ArrayList<Sensor>>() {
             @Override
             public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
-                ArrayList<CO2> temp = new ArrayList<>();
-                for (int i = 0; i < response.body().size(); i++) {
-                    temp.add(response.body().get(i).getCo2());
-                    temp.get(i).setTime(response.body().get(i).getTime());
+                if (response.isSuccessful())
+                {
+                    ArrayList<CO2> temp = new ArrayList<>();
+                    for (int i = 0; i < response.body().size(); i++) {
+                        temp.add(response.body().get(i).getCo2());
+                        temp.get(i).setTime(response.body().get(i).getTime());
+                    }
+                    co2s.setValue(temp);
                 }
-                co2s.setValue(temp);
             }
 
             @Override

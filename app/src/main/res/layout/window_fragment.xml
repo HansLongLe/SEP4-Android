@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MotionFragment"
+    tools:context=".view.WindowFragment"
     android:background="?boxBackgroundColor"
     android:clickable="true">
 
@@ -24,11 +24,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:gravity="center|center_vertical"
-                android:text="@string/motion_current_state"
+                android:text="@string/window_current_state"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/current_motion"
+                android:id="@+id/current_window"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

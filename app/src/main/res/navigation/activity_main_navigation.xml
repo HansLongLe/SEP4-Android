@@ -22,10 +22,10 @@
         android:label="humidity_fragment"
         tools:layout="@layout/humidity_fragment" />
     <fragment
-        android:id="@+id/motionFragment"
-        android:name="com.example.sep4_android.view.MotionFragment"
-        android:label="motion_fragment"
-        tools:layout="@layout/motion_fragment" />
+        android:id="@+id/windowFragment"
+        android:name="com.example.sep4_android.view.WindowFragment"
+        android:label="window_fragment"
+        tools:layout="@layout/window_fragment" />
     <fragment
         android:id="@+id/usersListFragmentt"
         android:name="com.example.sep4_android.view.UserListFragment"

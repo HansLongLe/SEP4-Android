@@ -38,12 +38,15 @@ public class HumidityRepository {
         call.enqueue(new Callback<ArrayList<Sensor>>() {
             @Override
             public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
-                ArrayList<Humidity> temp = new ArrayList<>();
-                for (int i = 0; i < response.body().size(); i++) {
-                    temp.add(response.body().get(i).getHumidity());
-                    temp.get(i).setTime(response.body().get(i).getTime());
+                if (response.isSuccessful())
+                {
+                    ArrayList<Humidity> temp = new ArrayList<>();
+                    for (int i = 0; i < response.body().size(); i++) {
+                        temp.add(response.body().get(i).getHumidity());
+                        temp.get(i).setTime(response.body().get(i).getTime());
+                    }
+                    humidityData.setValue(temp);
                 }
-                humidityData.setValue(temp);
             }
 
             @Override
