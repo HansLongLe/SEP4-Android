@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton floatingActionButton = findViewById(R.id.windowButton);
         floatingActionButton.setOnClickListener(view -> {
             if(buttonState) {
-                floatingActionButton.setImageResource(R.drawable.ic_window);
+                floatingActionButton.setImageResource(R.drawable.windows);
                 floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.main_color)));
                 buttonState = false;
             }
             else if (!buttonState) {
-                floatingActionButton.setImageResource(R.drawable.ic_motion);
+                floatingActionButton.setImageResource(R.drawable.window);
                 floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                 buttonState = true;
             }
