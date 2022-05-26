@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void bottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.getMenu().getItem(2).setEnabled(false);
         navController = Navigation.findNavController(this,  R.id.fragmentContainerViewMainActivity);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
