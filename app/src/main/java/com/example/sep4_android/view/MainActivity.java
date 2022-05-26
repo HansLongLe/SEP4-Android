@@ -138,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
        switch (item.getItemId()) {
            case R.id.users_list:
-               getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMainActivity, new UserListFragment()).commit();
+               getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.nav_default_enter_anim,
+                               R.animator.nav_default_exit_anim, R.animator.nav_default_pop_enter_anim, R.animator.nav_default_pop_exit_anim)
+                       .replace(R.id.fragmentContainerViewMainActivity, new UserListFragment()).commit();
                break;
            case R.id.log_out:
                FirebaseAuth.getInstance().signOut();
@@ -146,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
                startActivity(new Intent(this, LoginCreateAccountPage.class));
                break;
            case R.id.create_user:
-               getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewMainActivity, new CreateUserFragment()).commit();
+               getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.nav_default_enter_anim,
+                           R.animator.nav_default_exit_anim, R.animator.nav_default_pop_enter_anim, R.animator.nav_default_pop_exit_anim)
+                   .replace(R.id.fragmentContainerViewMainActivity, new CreateUserFragment()).commit();
                break;
        }
         return true;
