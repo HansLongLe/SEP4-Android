@@ -12,18 +12,18 @@
         android:orientation="vertical"
         android:weightSum="10">
 
-    <fragment
-        android:id="@+id/fragmentContainerViewMainActivity"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="409dp"
-        android:layout_height="730dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        app:defaultNavHost="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:navGraph="@navigation/activity_main_navigation" />
+        <fragment
+            android:id="@+id/fragmentContainerViewMainActivity"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            app:defaultNavHost="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:navGraph="@navigation/activity_main_navigation" />
 
         <Space
             android:layout_width="match_parent"
