@@ -64,7 +64,7 @@ public class HumidityFragment extends Fragment {
             filteredHumidity = humidityList;
             humidityAdapter.updateHumidityData(humidityList);
             TextView currentHumidity = view.findViewById(R.id.current_humidity);
-            currentHumidity.setText(humidityArrayList.get(0).getHumidity() + "g/m³");
+            currentHumidity.setText(humidityArrayList.get(0).getHumidity() + "%");
         });
         recyclerView.setAdapter(humidityAdapter);
 

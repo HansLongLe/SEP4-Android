@@ -36,7 +36,7 @@ public class HumidityAdapter extends RecyclerView.Adapter<HumidityAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull HumidityAdapter.ViewHolder holder, int position) {
-        holder.dataInformation.setText(Double.toString(humidityData.get(position).getHumidity()) + " g/m³");
+        holder.dataInformation.setText(Double.toString(humidityData.get(position).getHumidity()) + " %");
         holder.dataDate.setText(humidityData.get(position).getTime().toString() + "");
         holder.dateID.setText(humidityData.get(position).getHumidityId() + "");
     }
