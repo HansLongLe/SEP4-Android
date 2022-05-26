@@ -71,7 +71,12 @@ public class CO2Fragment extends Fragment {
         });
         recyclerView.setAdapter(co2Adapter);
 
+        return view;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         autoCompleteTextView = view.findViewById(R.id.auto_complete_text_view);
         arrayAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.dropdown_menu_item,items);
         autoCompleteTextView.setAdapter(arrayAdapter);
@@ -83,52 +88,50 @@ public class CO2Fragment extends Fragment {
                 if (!co2s.isEmpty())
                 {
                     filteredCo2s = new ArrayList<>();
-                switch (adapterView.getItemAtPosition(i).toString()){
-                    case "Last hour":
-                        for (CO2 co2: co2s) {
-                            if (timestamp.getTime() - co2.getTime().getTime() <= 3600000)
-                            {
-                                filteredCo2s.add(co2);
-                                co2Adapter.updateCO2Data(filteredCo2s);
+                    switch (adapterView.getItemAtPosition(i).toString()){
+                        case "Last hour":
+                            for (CO2 co2: co2s) {
+                                if (timestamp.getTime() - co2.getTime().getTime() <= 3600000)
+                                {
+                                    filteredCo2s.add(co2);
+                                    co2Adapter.updateCO2Data(filteredCo2s);
+                                }
                             }
-                        }
-                        break;
-                    case "Today":
-                        for (CO2 co2: co2s) {
-                            if (co2.getTime().getYear() == timestamp.getYear() && co2.getTime().getMonth() == timestamp.getMonth()
-                                    && co2.getTime().getDate() == timestamp.getDate())
-                            {
-                                filteredCo2s.add(co2);
-                                co2Adapter.updateCO2Data(filteredCo2s);
+                            break;
+                        case "Today":
+                            for (CO2 co2: co2s) {
+                                if (co2.getTime().getYear() == timestamp.getYear() && co2.getTime().getMonth() == timestamp.getMonth()
+                                        && co2.getTime().getDate() == timestamp.getDate())
+                                {
+                                    filteredCo2s.add(co2);
+                                    co2Adapter.updateCO2Data(filteredCo2s);
+                                }
                             }
-                        }
-                        break;
-                    case "Past 7 days":
-                        for (CO2 co2: co2s) {
-                            if ((timestamp.getTime() - co2.getTime().getTime())/1000 <= 604800)
-                            {
-                                filteredCo2s.add(co2);
-                                co2Adapter.updateCO2Data(filteredCo2s);
+                            break;
+                        case "Past 7 days":
+                            for (CO2 co2: co2s) {
+                                if ((timestamp.getTime() - co2.getTime().getTime())/1000 <= 604800)
+                                {
+                                    filteredCo2s.add(co2);
+                                    co2Adapter.updateCO2Data(filteredCo2s);
+                                }
                             }
-                        }
-                        break;
-                    case "Last month":
-                        for (CO2 co2: co2s) {
-                            if ((timestamp.getTime() - co2.getTime().getTime())/1000 <= 2628000){
-                                filteredCo2s.add(co2);
-                                co2Adapter.updateCO2Data(filteredCo2s);
+                            break;
+                        case "Last month":
+                            for (CO2 co2: co2s) {
+                                if ((timestamp.getTime() - co2.getTime().getTime())/1000 <= 2628000){
+                                    filteredCo2s.add(co2);
+                                    co2Adapter.updateCO2Data(filteredCo2s);
+                                }
                             }
-                        }
-                        break;
-                }
+                            break;
+                    }
                 }
 
             }
         });
-        return view;
     }
-
-
+    
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

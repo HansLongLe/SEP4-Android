@@ -68,10 +68,12 @@ public class HumidityFragment extends Fragment {
         });
         recyclerView.setAdapter(humidityAdapter);
 
+        return view;
+    }
 
-
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
         autoCompleteTextView = view.findViewById(R.id.auto_comlete_text_view2);
         arrayAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.dropdown_menu_item,items);
         autoCompleteTextView.setAdapter(arrayAdapter);
@@ -124,8 +126,6 @@ public class HumidityFragment extends Fragment {
                 }
             }
         });
-
-        return view;
     }
 
     @Override
