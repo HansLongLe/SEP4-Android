@@ -85,7 +85,7 @@ public class CreateUserFragment extends Fragment {
                     }
                         else
                         {
-//                            Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Registration failed", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
