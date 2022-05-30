@@ -32,23 +32,18 @@ public class CO2Repository {
     public MutableLiveData<ArrayList<CO2>> getCo2s()
     {
         DataRetrieveInterface apiService = ServiceGenerator.getRetrofitInstance().create(DataRetrieveInterface.class);
-        Call<ArrayList<Sensor>> call = apiService.getSensors();
-        call.enqueue(new Callback<ArrayList<Sensor>>() {
+        Call<ArrayList<CO2>> call = apiService.getCO2s();
+        call.enqueue(new Callback<ArrayList<CO2>>() {
             @Override
-            public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
+            public void onResponse(Call<ArrayList<CO2>> call, Response<ArrayList<CO2>> response) {
                 if (response.isSuccessful())
                 {
-                    ArrayList<CO2> temp = new ArrayList<>();
-                    for (int i = 0; i < response.body().size(); i++) {
-                        temp.add(response.body().get(i).getCo2());
-                        temp.get(i).setTime(response.body().get(i).getTime());
-                    }
-                    co2s.setValue(temp);
+                    co2s.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Sensor>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<CO2>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

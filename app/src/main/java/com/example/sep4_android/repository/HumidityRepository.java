@@ -34,23 +34,18 @@ public class HumidityRepository {
     public MutableLiveData<ArrayList<Humidity>> getHumidityData()
     {
         DataRetrieveInterface apiService = ServiceGenerator.getRetrofitInstance().create(DataRetrieveInterface.class);
-        Call<ArrayList<Sensor>> call = apiService.getSensors();
-        call.enqueue(new Callback<ArrayList<Sensor>>() {
+        Call<ArrayList<Humidity>> call = apiService.getHumidities();
+        call.enqueue(new Callback<ArrayList<Humidity>>() {
             @Override
-            public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
+            public void onResponse(Call<ArrayList<Humidity>> call, Response<ArrayList<Humidity>> response) {
                 if (response.isSuccessful())
                 {
-                    ArrayList<Humidity> temp = new ArrayList<>();
-                    for (int i = 0; i < response.body().size(); i++) {
-                        temp.add(response.body().get(i).getHumidity());
-                        temp.get(i).setTime(response.body().get(i).getTime());
-                    }
-                    humidityData.setValue(temp);
+                    humidityData.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Sensor>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Humidity>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

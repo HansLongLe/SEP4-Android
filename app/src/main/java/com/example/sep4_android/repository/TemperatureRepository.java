@@ -33,25 +33,22 @@ public class TemperatureRepository {
     public MutableLiveData<ArrayList<Temperature>> getTemperatureData()
     {
         DataRetrieveInterface apiService = ServiceGenerator.getRetrofitInstance().create(DataRetrieveInterface.class);
-        Call<ArrayList<Sensor>> call = apiService.getSensors();
-        call.enqueue(new Callback<ArrayList<Sensor>>() {
+        Call<ArrayList<Temperature>> call = apiService.getTemperatures();
+        call.enqueue(new Callback<ArrayList<Temperature>>() {
             @Override
-            public void onResponse(Call<ArrayList<Sensor>> call, Response<ArrayList<Sensor>> response) {
+            public void onResponse(Call<ArrayList<Temperature>> call, Response<ArrayList<Temperature>> response) {
                 if (response.isSuccessful())
                 {
-                    ArrayList<Temperature> temp = new ArrayList<>();
-                    for (int i = 0; i < response.body().size(); i++) {
-                        temp.add(response.body().get(i).getTemperature());
-                        temp.get(i).setTime(response.body().get(i).getTime());
-                    }
-                    temperatureData.setValue(temp);
+                    temperatureData.setValue(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Sensor>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Temperature>> call, Throwable t) {
                 t.printStackTrace();
             }
+
+
         });
         return temperatureData;
     }

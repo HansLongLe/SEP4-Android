@@ -6,22 +6,42 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Timestamp;
 
 public class Temperature {
+
+    @SerializedName("time")
+    @Expose
+    private Timestamp time;
     @SerializedName("temperatureId")
     @Expose
     private Integer temperatureId;
     @SerializedName("temperature")
     @Expose
     private Double temperature;
-    private Timestamp time;
 
-
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public Temperature() {
     }
 
-    public Temperature(Integer temperatureId, Double temperature, Timestamp time) {
+    /**
+     *
+     * @param temperature
+     * @param time
+     * @param temperatureId
+     */
+    public Temperature(Timestamp time, Integer temperatureId, Double temperature) {
         super();
+        this.time = time;
         this.temperatureId = temperatureId;
         this.temperature = temperature;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
@@ -39,13 +59,5 @@ public class Temperature {
 
     public void setTemperature(Double temperature) {
         this.temperature = temperature;
-    }
-
-    public Timestamp getTime() {
-        return time;
-    }
-
-    public void setTime(Timestamp time) {
-        this.time = time;
     }
 }
