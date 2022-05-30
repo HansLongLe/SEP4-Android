@@ -19,7 +19,7 @@ public class HumidityRepository {
     private static HumidityRepository instance;
     private final MutableLiveData<ArrayList<Humidity>> humidityData;
 
-    public HumidityRepository() {
+    private HumidityRepository() {
         humidityData = new MutableLiveData<>();
     }
 

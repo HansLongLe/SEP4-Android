@@ -18,7 +18,7 @@ public class TemperatureRepository {
     private static TemperatureRepository instance;
     private final MutableLiveData<ArrayList<Temperature>> temperatureData;
 
-    public TemperatureRepository() {
+    private TemperatureRepository() {
         temperatureData = new MutableLiveData<>();
     }
 

@@ -17,7 +17,7 @@ public class CO2Repository {
     private static CO2Repository instance;
     private final MutableLiveData<ArrayList<CO2>> co2s;
 
-    public CO2Repository() {
+    private CO2Repository() {
         co2s = new MutableLiveData<>();
     }
 
