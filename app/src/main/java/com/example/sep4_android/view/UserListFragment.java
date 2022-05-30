@@ -65,12 +65,6 @@ public class UserListFragment extends Fragment {
                 usersList.clear();
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     User user = ds.getValue(User.class);
-
-                    //get all users except signed in user
-//                    if(!user.getUid().equals(firebaseUser.getUid())){
-//                        usersList.add(user);
-//                    }
-
                     usersList.add(user);
 
                     //adapter
