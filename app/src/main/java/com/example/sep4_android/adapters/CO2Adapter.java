@@ -1,5 +1,6 @@
 package com.example.sep4_android.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(view);
         }
 
+@SuppressLint("SetTextI18n")
 @Override
 public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.dataInformation.setText(cO2Data.get(position).getCo2Level() + " ppm");
