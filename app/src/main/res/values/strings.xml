@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SEP4-Android</string>
+    <string name="app_name">Smart gym</string>
     <string name="text_id">ID</string>
     <string name="text_data">Data</string>
     <string name="text_date">Date</string>
