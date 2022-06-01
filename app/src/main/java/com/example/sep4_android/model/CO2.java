@@ -12,6 +12,7 @@ public class CO2 {
     @SerializedName("co2Level")
     @Expose
     private int co2Level;
+    @SerializedName("time")
     private Timestamp time;
 
     public CO2(int co2Id, int co2Level, Timestamp time)

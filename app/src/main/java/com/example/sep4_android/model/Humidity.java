@@ -13,6 +13,7 @@ public class Humidity {
     @SerializedName("humidity")
     @Expose
     private Double humidity;
+    @SerializedName("time")
     private Timestamp time;
 
     public Humidity() {
