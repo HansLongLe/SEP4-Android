@@ -2,9 +2,7 @@ package com.example.sep4_android.repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.sep4_android.model.CO2;
 import com.example.sep4_android.model.Humidity;
-import com.example.sep4_android.model.Sensor;
 import com.example.sep4_android.network.DataRetrieveInterface;
 import com.example.sep4_android.network.ServiceGenerator;
 
