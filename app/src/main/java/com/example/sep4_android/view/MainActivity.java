@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                break;
            case R.id.log_out:
                FirebaseAuth.getInstance().signOut();
-               userRepository.userIsOffline();
                finish();
                startActivity(new Intent(this, LoginCreateAccountPage.class));
                break;
