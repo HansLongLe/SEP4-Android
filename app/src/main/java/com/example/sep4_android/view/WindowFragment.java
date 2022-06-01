@@ -38,14 +38,14 @@ public class WindowFragment extends Fragment {
         super.onResume();
         viewModel.getWindowState().observe(getViewLifecycleOwner(), window -> {
             this.window = window;
+            TextView currentState = view.findViewById(R.id.current_window);
+            if (window.getWindowOpen())
+            {
+                currentState.setText("Opened");
+            }
+            else {
+                currentState.setText("Closed");
+            }
         });
-        TextView currentState = view.findViewById(R.id.current_window);
-        if (window.getWindowOpen())
-        {
-            currentState.setText("Opened");
-        }
-        else {
-            currentState.setText("Closed");
-        }
     }
 }
